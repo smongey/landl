@@ -1,14 +1,14 @@
 require.config({
 
-	baseUrl: '../bower_components/',
+	//baseUrl: '../bower_components/',
 
 	paths: {
-		jquery: 'jquery/jquery-pjax',
-		raphael: 'raphael/raphael',
-		localScroll: "jquery.localScroll/jquery.localScroll",
-		scrollTo: "jquery.scrollTo/jquery.scrollTo",
-		swipe: 'swipe/swipe',
-		pjax: 'jquery-pjax/jquery.pjax'
+		jquery: '../bower_components/jquery/jquery',
+		raphael: '../bower_components/raphael/raphael',
+		localScroll: "../bower_components/jquery.localScroll/jquery.localScroll",
+		scrollTo: "../bower_components/jquery.scrollTo/jquery.scrollTo",
+		swipe: '../bower_components/swipe/swipe',
+		isotope: '../bower_components/isotope/jquery.isotope.min'
 	},
 	shim: {
 		'localScroll': {
@@ -19,15 +19,15 @@ require.config({
 			deps: ['jquery'],
 			exports: 'scrollTo'
 		},
-		'pjax': {
+		'isotope': {
 			deps: ['jquery'],
-			exports: 'pjax'
+			exports: 'isotope'
 		}
 	}
 });
 
-require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'pjax', 'jquery-bridget/jquery.bridget', 'packery/js/packery', '../scripts/modules/slider'],
-	function($, raphael, localScroll, scrollTo, swipe, pjax, bridget, packery, slider) {
+require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'isotope', '../scripts/modules/slider'],
+	function($, raphael, localScroll, scrollTo, swipe, isotope, slider) {
 	'use strict';
 
 	$('body').addClass('hidden');
@@ -36,12 +36,33 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'pjax', 'jquer
 		
 		$('body').delay(2000).removeClass('hidden');
 
-		// packery for images 
-		$('#container').packery({
+		//isotope for images 
+		$('#container').isotope({
 			itemSelector: '.item',
-			stamp: ".stamp",
-			gutter: 60
+			masonry: {
+				gutterWidth: 60,
+				columnWidth: 100
+				//cornerStampSelector: '.stamp'
+			}
 		});
+
+
+		// var $container = $('#container')
+		// // initialize Isotope
+		// $container.isotope({
+		//   // options...
+		//   resizable: false, // disable normal resizing
+		//   // set columnWidth to a percentage of container width
+		//   masonry: { columnWidth: $container.width() / 5 }
+		// });
+
+		// update columnWidth on window resize
+		// $(window).smartresize(function(){
+		//   $container.isotope({
+		//     // update columnWidth to a percentage of container width
+		//     masonry: { columnWidth: $container.width() / 5 }
+		//   });
+		// });
 
 
 		window.mySwipe = new Swipe(document.getElementById('slider'), {
@@ -54,7 +75,6 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'pjax', 'jquer
 			transitionEnd: function(index, elem) {}
 		});
 
-		//$('.bg').css({'transition': '1000ms'});
 
 		$('.item').each(function() {
 			var thumbHeight = $(this).height();
@@ -69,39 +89,6 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'pjax', 'jquer
 		slideTitlePosition(slideTitlePos);
 
 		
-		// // position for large images titles
-		// $('.item').each(function() {
-		// 	var thumbHeight = $(this).height();
-		// 	var projectTitle = $('.project-title');
-		// 	$(this).find('h3').css({ 'margin-top': ((thumbHeight / 2) - $(this).find('h3').height() - 10) });
-		// });
-
-		//  pjax init
-		// var duration = 400;
-		// $('a[data-pjax]').pjax('#pjaxContainer', {
-		// 	fragment: '#pjaxContainer',
-		// 	duration: duration
-		// }).bind('click', function(e) {
-		// 	e.preventDefault();
-		// });
-
-		// Scroll to top and down again
-		// $('a[href*=#]:not([href=#])').click(function() {
-		// 	var target = $(this.hash);
-		// 	if ($('#first').hasClass('fixed-top')) {
-		// 		$('#intro').css({
-		// 			'margin-top': 0
-		// 		});
-		// 		$('#page').animate({
-		// 			'margin-top': $(window).height()
-		// 		}, 1000);
-		// 	} else {
-		// 		$('html,body').animate({
-		// 			scrollTop: target.offset().top + 1
-		// 		}, 500);
-		// 	}
-		// 	return false;
-		// });
 
 	});
 
@@ -135,9 +122,8 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'pjax', 'jquer
 					scrollIntro();
 					$('#intro').animate({ 'margin-top': 0 }, 400);
 					$('#page').animate({ 'margin-top': $(window).height() }, 400);
+					$('ul#second').fadeOut(100);
 					$('div.bg').css({'background-position-y' : '0' });
-					
-
 					slideTitlePosition(slideTitlePos);
 
 				});
@@ -147,33 +133,18 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'pjax', 'jquer
 				duh.preventDefault();
 				$('#intro').animate({ 'margin-top': 0 }, 400);
 				$('#page').animate({ 'margin-top': $(window).height() }, 400);
-				$('div.bg').css({'background-position-y' : '50%' });
-				
+				$('div.bg').css({'background-position-y' : '0' });
+				$('ul#second').fadeOut(100);
 				$('#nav').fadeOut(300, function(){
 					$(this).removeClass().fadeIn(500);
 					$('a.introToggle').removeClass('locked');
+					
 				});
 
 				var slideTitlePos = $('#slider').height() / 2 - 30;
 				scrollIntro();
 				slideTitlePosition(slideTitlePos);
 
-
-
-				
-				// // $('#intro').animate({ 'margin-top': 0 }, 400);
-				// // $('#page').animate({ 'margin-top': $(window).height() }, 400);
-				// $('div.bg').css({'background-position-y' : '50%' });
-				
-				// $('#nav').fadeOut(300, function(){
-				// 	$(this).removeClass().fadeIn(500);
-				// 	$('a.introToggle').removeClass('locked');
-				// });
-				// //$(window).scrollTo(0, 300);
-				
-				// var slideTitlePos = $('#slider').height() / 2 - 30;
-				// scrollIntro();
-				// slideTitlePosition(slideTitlePos);
 
 			}
 
@@ -186,36 +157,6 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'pjax', 'jquer
 	});
 
 
-	// pjax bind
-/*	var duration = 400;
-	$('#pjaxContainer').on('pjax:start', function() {
-
-		$(this).fadeOut(duration);
-		$('#second').fadeOut();
-
-	}).on('pjax:end', function() {
-
-		$(this).fadeIn(duration);
-
-	}).on('pjax:success', function() {
-
-		// packery doesn't work on reload
-		$('.item').hide();
-		$('#second').addClass('inline').fadeIn();
-		
-		// initialize Packery after all images have loaded
-		setTimeout(function() {
-			// $('#container').packery({
-			//     itemSelector: '.item',
-			//     stamp: ".stamp",
-			//     gutter: 60,
-			// });
-			$(window).trigger('resize');
-			$('.item').show();
-		}, 1000);
-
-	});*/
-
 	$(window).on('resize', function() {
 		var slideTitlePos = $('#slider').height() / 2 - 30;
 		slideTitlePosition(slideTitlePos);
@@ -225,17 +166,7 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'pjax', 'jquer
 }); // end require
 
 
-
-// function slideTitlePosition() {
-// 	var sliderHeight = $('#slider').height() / 2 - 30;
-// 	var slideTitle = $('.slide-title');
-// 	$(slideTitle).css({
-// 		'margin-top': sliderHeight
-// 	});
-// }
-
-	
-
+// Place the Slide Title in the middle
 function slideTitlePosition(elem) {
 	$('.bg h2').css({
 		'margin-top': elem
@@ -267,6 +198,7 @@ var scrollIntro = function(){
 				});
 				$('#nav').removeClass().addClass('top');
 				$('a.introToggle').addClass('locked');
+				$('#second').fadeIn(300);
 				
 			}
 
