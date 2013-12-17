@@ -23,7 +23,12 @@ h1, h2, h3, h4, h5, nav { -webkit-font-smoothing: antialiased; }
 	.swipe-wrap > div { float:left; width:100%; position: relative; text-align: center; }
 	.first { background: url('http://placekitten.com/1200/700') no-repeat 0 0; @include background-size(cover); }
 	.second { background: url('http://placekitten.com/g/1200/700') no-repeat 0 0; @include background-size(cover); }
-
+	#next { position: absolute; z-index: 500; top:100px; right:0px; width:50%; height:100%; opacity: 0;
+		&:hover { cursor:url(../images/next.png), auto; }
+	}
+	#prev { position: absolute; z-index: 500; top:100px; left:0px; width:50%; height:100%; opacity: 0;
+		&:hover { cursor:url(../images/prev.png), auto; }
+	}
 }
 
 #nav { width:100%; position: absolute; z-index: 900; bottom:0px; margin-bottom: 20px; @include single-transition(all, ease, .3s);
@@ -180,37 +185,9 @@ footer {
   width: 100%;
 }
 
-// footer > * {
-//   //@include small-type;
-//   position: relative;
-//   display: inline-block;
-//   margin-left: 10%;
-//   padding-bottom: 30px;
-//   left: 35%;
-// }
-
-// Classes for fixes and elements
-
-.white {
-  color: white !important;
-  a {
-	color: white !important;
-  }
-}
-
-.right {
-  float: right;
-}
-
-.clear-fix {
-  clear: both;
-}
 
 
-
-// items for packery
-
-.item { margin-bottom: 40px; 
+.item { margin-bottom: 60px; 
   .project-thumbnail { height: 0px; text-align: center;
 	&:hover {
 

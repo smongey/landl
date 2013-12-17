@@ -88,8 +88,6 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'isotope', '..
 
 		slideTitlePosition(slideTitlePos);
 
-		
-
 	});
 
 	scrollIntro();
@@ -145,17 +143,17 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'isotope', '..
 				scrollIntro();
 				slideTitlePosition(slideTitlePos);
 
-
 			}
-
-
 
 		}
 
-
-
 	});
 
+	$('#first li a:not(:last-child)').click(function(){
+
+		$(window).scrollTo('#page', 400);
+
+	});
 
 	$(window).on('resize', function() {
 		var slideTitlePos = $('#slider').height() / 2 - 30;
