@@ -204,6 +204,13 @@ var slideTitlePosition = function() {
 
 // Scroll Introduction
 var scrollIntro = function(){
+
+	// if () {
+
+	// } else {
+
+	// }
+
 	$(window).on('scroll', function() {
 		
 		var pageOffset = window.pageYOffset;
