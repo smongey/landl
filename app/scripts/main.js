@@ -5,17 +5,12 @@ require.config({
 	paths: {
 		jquery: '../bower_components/jquery/jquery',
 		raphael: '../bower_components/raphael/raphael',
-		localScroll: "../bower_components/jquery.localScroll/jquery.localScroll",
 		scrollTo: "../bower_components/jquery.scrollTo/jquery.scrollTo",
 		swipe: '../bower_components/swipe/swipe',
 		isotope: '../bower_components/isotope/jquery.isotope.min',
 		waypoints: '../bower_components/jquery-waypoints/waypoints.min'
 	},
 	shim: {
-		'localScroll': {
-			deps: ['jquery', 'scrollTo'],
-			exports: 'localScroll'
-		},
 		'scrollTo': {
 			deps: ['jquery'],
 			exports: 'scrollTo'
@@ -31,8 +26,8 @@ require.config({
 	}
 });
 
-require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../scripts/modules/slider'],
-	function($, raphael, localScroll, scrollTo, swipe, isotope, waypoints, slider) {
+require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../scripts/modules/slider'],
+	function($, raphael, scrollTo, swipe, isotope, waypoints, slider) {
 	'use strict';
 
 	$('body').addClass('hidden');
@@ -108,11 +103,11 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'isotope', 'wa
 				$('body').removeClass('hidden');
 				$('.practice ul.menu').fadeIn(0);
 				$('#first li:nth-child(2) a').addClass('active');
-				
+				practiceMenu();
+		
 			});
 
-			practiceMenu();
-
+			
 		// NEWS
 		} else if (location.pathname.indexOf('news') > -1) {
 
@@ -258,7 +253,7 @@ var ajaxCall = function(address){
 		$(window).scrollTo('#page', 300, function(){
 			$('#page > *').fadeOut(500, function(){
 				$('#page').hide().load(address + ' #page > *', function(){
-					$(this).fadeIn(300);
+					$(this).fadeIn(150);
 
 					if (address.indexOf('projects') > -1) {
 					
@@ -282,7 +277,7 @@ var ajaxCall = function(address){
 						$('.practice ul.menu').fadeIn(300);
 						practiceMenu();
 						console.log('practice ajax load');
-							
+						
 						
 					} else if (address.indexOf('news') > -1) {
 						
@@ -420,22 +415,23 @@ var scrollIntro = function(){
 
 // localscroll and practice nav highlighting
 var practiceMenu = function(){
-	$('ul.menu').localScroll({ 
-		duration: 600, 
-		offset: -80, 
-		hash: false, 
-		lazy: true 
-	});
 
 	$('ul.menu li a').each(function() {
-		$(this).click(function(){
+		$(this).click(function(e){
+			e.preventDefault();
 			$('ul.menu li a').removeClass('active');
 			$(this).addClass('active');
+			var url = $(this).attr('href').split('#');
+			var anchor = '#'+url[1];
+			console.log(anchor);
+			$(window).scrollTo(anchor, 600, {
+				offset: -80
+			});
+
 		});
 	});
 
 	$('ul.menu li:first-child a').addClass('active');
-	
 	console.log('practiceMenu init');
 	
 };
@@ -479,8 +475,8 @@ var textToggle = function(){
 var newsTitle = function(){
 	var imageWidth = $('.full div.image').width() / 2;
 	var titleWidth = $('.image h2').outerWidth() / 2;
-	$('.image h2').css({'margin-left': (imageWidth - titleWidth) });
-	slideTitlePosition('.full div.image', '.image h2');
+	$('.image h2').css({'margin-left': (imageWidth - titleWidth), 'margin-top' : '240px' });
+	//slideTitlePosition('.full div.image', '.image h2');
 	console.log('newsTitle init');
 	$('.image h2').animate({'opacity': 1}, 300);
 };
