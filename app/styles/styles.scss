@@ -110,6 +110,7 @@ a.introToggle {
 #page { background: white; position: relative; padding-top: 100px; width:100%; margin:0 auto; padding-left: 5%; padding-right: 5%; z-index: 500; bottom: 0; margin-top: 700px; min-height: 700px;
 	.home {}
 	.projects, .project, .news { margin-top: 20px; }
+	.projects #container { width:1300px; margin: 0 auto; }
 }
 
 #container { text-align: center; }

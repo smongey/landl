@@ -306,7 +306,8 @@ var isotopeLoad = function(item, gutter, column){
 			itemSelector: item,
 			masonry: {
 				gutterWidth: gutter,
-				columnWidth: column
+				columnWidth: column,
+				isFitWidth: true
 				//cornerStampSelector: '.stamp'
 			}
 		});
