@@ -40,7 +40,7 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'isotope', 'wa
 	$(document).ready(function() {
 		
 		// HOMEPAGE
-		if (window.location.href === 'http://127.0.0.1:9000/') {
+		if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/') {
 
 			$('body').delay(2000).removeClass('hidden');
 			isotopeLoad('.item', 60, 100);
@@ -153,7 +153,7 @@ require(['jquery', 'raphael', 'localScroll', 'scrollTo', 'swipe', 'isotope', 'wa
 			
 			$(window).scrollTo('#page', 400, function(){
 
-				if (window.location.href === 'http://127.0.0.1:9000/') {
+				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/') {
 
 					$('#second').addClass('home').fadeIn(300);
 
@@ -214,8 +214,7 @@ var isotopeLoad = function(item, gutter, column){
 		}
 	});
 
-	centreThumbs(item);
-};
+	centreThumbs(item);};
 
 // Ajax Call
 var ajaxCall = function(address){
@@ -256,8 +255,7 @@ var ajaxCall = function(address){
 				});
 			});
 		});
-	}
-};
+	}};
 
 // Centre thumbnail titles and images
 var centreThumbs = function(item) {
@@ -334,7 +332,7 @@ var scrollIntro = function(){
 				$(window).scrollTo(0, 1);
 				$('#nav').removeClass().addClass('top');
 				$('a.introToggle').addClass('locked');
-				if (window.location.href === 'http://127.0.0.1:9000/' || location.pathname.indexOf('projects') > -1) {
+				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/' || location.pathname.indexOf('projects') > -1) {
 					$('#second').fadeIn(300);
 				}
 
@@ -361,6 +359,4 @@ var practiceMenu = function(){
 			$(this).addClass('active');
 		});
 	});
-	$('ul.menu li:first-child a').addClass('active');
-
-};
+	$('ul.menu li:first-child a').addClass('active');};
