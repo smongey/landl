@@ -47,7 +47,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
-					$('a.introToggle').removeClass('locked');
+					$('a.logoToggle').removeClass('locked');
 				});
 				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
@@ -57,9 +57,10 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				$('#first li:not(:last-child) a').removeClass('active');
 				isotopeLoad('.item', 60, 100);
 				$('body').removeClass('hidden');
-				$('#second').removeClass('home').fadeIn(0);
-				$('#first li:first-child a').addClass('active');
-
+				if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
+					$('#second').removeClass('home').fadeIn(0);
+				}
+				$('#first li:first-child a, #second li:first-child a').addClass('active');
 			});
 
 
@@ -70,7 +71,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
-					$('a.introToggle').removeClass('locked');
+					$('a.logoToggle').removeClass('locked');
 				});
 				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
@@ -93,7 +94,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
-					$('a.introToggle').removeClass('locked');
+					$('a.logoToggle').removeClass('locked');
 				});
 				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
@@ -116,7 +117,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
-					$('a.introToggle').removeClass('locked');
+					$('a.logoToggle').removeClass('locked');
 				});
 				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
@@ -141,9 +142,9 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 
 
-	$('a.introToggle').on('click', function(e){
+	$('a.logoToggle').on('click', function(e){
 		e.preventDefault();
-
+		$(this).addClass('hidden');
 
 		// AT PAGE
 		if ($(this).hasClass('locked')) {
@@ -154,7 +155,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 					$('#nav').fadeOut(300, function(){
 						$(this).removeClass().fadeIn(500);
-						$('a.introToggle').removeClass('locked');
+						$('a.logoToggle').removeClass('locked');
 					});
 					
 					scrollIntro();
@@ -179,7 +180,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				
 				$('#nav').fadeOut(300, function(){
 					$(this).removeClass().fadeIn(500);
-					$('a.introToggle').removeClass('locked');
+					$('a.logoToggle').removeClass('locked');
 				});
 
 				scrollIntro();
@@ -190,7 +191,6 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 		// AT INTRO
 		} else {
-			
 			$(window).scrollTo('#page', 400, function(){
 
 				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/') {
@@ -211,11 +211,11 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 				}
 			});
+			
 		}
 	});
-
-	ajaxLink('#first li:not(:last-child) a, a.logo');
-	ajaxLink('a.single, a.back');
+	
+	ajaxLink('#first li a, a.logo, a.single, a.back');
 
 	$(window).on('resize', function() {
 		//slideTitlePosition();
@@ -231,70 +231,80 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 // Ajax call
 var ajaxCall = function(address){
 
-	if (address.indexOf('/') > -1 || window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/') {
+	if (address.indexOf('/') > -1 || window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/') {
 		
 		$(window).scrollTo(0, 300, function(){
-			$('#page > *').fadeOut(500, function(){
-				$('#page').hide().load(address + ' #page > *', function(){
-					
-					$(this).fadeIn('slow');
-					isotopeLoad('.item', 60, 100);
-					$('#second').fadeOut(300);
-					
-					console.log('home ajax load');
-					
-				});
+			$('#page > *').fadeOut(500, function(){});
+			$('#page').hide().load(address + ' #page > *', function(){
+				
+				$(this).fadeIn('slow');
+				isotopeLoad('.item', 60, 100);
+				$('#second').fadeOut(300);
+				
+				console.log('home ajax load');
+				
 			});
+			
 		});
 		$('#second').addClass('home').fadeIn(300);
+
+		$(window).on('popstate', function(){
+           address = location.pathname.replace(/^.*[\\\/]/, ''); //get filename only
+           ajaxCall(address);
+        });
 
 	} else {
 		
 		$(window).scrollTo('#page', 300, function(){
-			$('#page > *').fadeOut(500, function(){
-				$('#page').hide().load(address + ' #page > *', function(){
-					$(this).fadeIn(150);
+			$('#page > *').fadeOut(500, function(){});
+			$('#page').hide().load(address + ' #page > *', function(){
+				$(this).fadeIn('150');
 
-					if (address.indexOf('projects') > -1) {
-					
+				if (address.indexOf('projects') > -1) {
+					if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
 						$('#second').hide().removeClass('home').fadeIn(300);
-						$('.practice ul.menu').fadeOut(300);
-						isotopeLoad('.item', 60, 100);
-						ajaxLink('a.single');
-						console.log('projects ajax load');
-					
-					} else if (address.indexOf('project') > -1) {
-					
-						$('#second').fadeOut(300);
-						$('.practice ul.menu').fadeOut(300);
-						ajaxLink('a.back');
-						textToggle();
-						console.log('project ajax load');
-
-					} else if (address.indexOf('practice') > -1) {
-						
-						$('#second').fadeOut(300);
-						$('.practice ul.menu').fadeIn(300);
-						practiceMenu();
-						console.log('practice ajax load');
-						
-						
-					} else if (address.indexOf('news') > -1) {
-						
-						$('#second').fadeOut(300);
-						newsTitle();
-						console.log('news ajax load');
-
-					} else {
-					
-						$('#second').fadeOut(300);
-						console.log('default ajax load');
-					
 					}
+					$('.practice ul.menu').fadeOut(300);
+					isotopeLoad('.item', 60, 100);
+					ajaxLink('a.single');
+					console.log('projects ajax load');
+				
+				} else if (address.indexOf('project') > -1) {
+				
+					$('#second').fadeOut(300);
+					$('.practice ul.menu').fadeOut(300);
+					ajaxLink('a.back');
+					textToggle();
+					console.log('project ajax load');
 
-				});
+				} else if (address.indexOf('practice') > -1) {
+					
+					$('#second').fadeOut(300);
+					$('.practice ul.menu').fadeIn(300);
+					practiceMenu();
+					console.log('practice ajax load');
+					
+					
+				} else if (address.indexOf('news') > -1) {
+					
+					$('#second').fadeOut(300);
+					newsTitle();
+					console.log('news ajax load');
+
+				} else {
+				
+					$('#second').fadeOut(300);
+					console.log('default ajax load');
+				
+				}
+
 			});
+			
 		});
+		$(window).on('popstate', function(){
+           address = location.pathname.replace(/^.*[\\\/]/, ''); //get filename only
+           ajaxCall(address);
+        });
 	}
 };
 
@@ -302,8 +312,10 @@ var ajaxCall = function(address){
 var isotopeLoad = function(item, gutter, column){
 
 	$('#container').imagesLoaded( function(){
-		$('#container').fadeIn(1000).isotope({
+		$('#container').isotope({
 			itemSelector: item,
+			animatioEngine: 'best-available',
+			transformsEnabled: false,
 			masonry: {
 				gutterWidth: gutter,
 				columnWidth: column,
@@ -313,7 +325,20 @@ var isotopeLoad = function(item, gutter, column){
 		});
 		centreThumbs(item);
 	});
+
+	$('#second li:first-child a').addClass('active');
+		
+	$('#second a').click(function(){
+		var selector = $(this).attr('data-filter');
+		$('#second a').removeClass('active');
+		$(this).addClass('active');
+		$('#container').isotope({ filter: selector });
+		return false;
+		$(this).fadeOut('slow');
+	});
+
 	console.log('isotope loaded');
+
 };
 
 // Centre thumbnail titles and images on projects page
@@ -374,7 +399,7 @@ var sliderLoad = function(id, speed){
 // Scroll watching intro toggler
 var scrollIntro = function(){
 
-	$(window).on('scroll', function() {
+	$(window).on('scroll touchmove', function() {
 		
 		var pageOffset = window.pageYOffset;
 		var slideTitlePos = $('#slider').height() / 2 - 30;
@@ -382,32 +407,33 @@ var scrollIntro = function(){
 		$('.bg').css({'background-position-y' : -(pageOffset / 5) });	
 		slideTitlePosition('#slider', '.bg h2'/*slideTitlePos + (pageOffset / 10)*/);
 
-		
-
-
-		//if nav has class of top and window offset is more than 0 the make 
+		//if nav has class of top and window offset is more than 0 then make 
 		if (window.pageYOffset >= $('#page').offset().top) {
 			if(!$('#nav').hasClass('top')) {
 
-				$(window).off('scroll');
+				$(window).off('scroll touchmove');
 				// Very ODD thing here happening with the animation speed set at 1 rather than 0. If 0 you get a lil glitch on scroll.
 				$('#intro').animate({ 'margin-top': -($(window).height()) }, 1);
 				$('#page').animate({ 'margin-top': 0 }, 1, function() { });
 				$(window).scrollTo(0, 1);
 				$('#nav').removeClass().addClass('top');
-				$('a.introToggle').addClass('locked');
+				$('a.logoToggle').addClass('locked');
 				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/' || location.pathname.indexOf('projects') > -1) {
-					$('#second').fadeIn(300);
+					if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
+						// nada
+					} else {
+						$('#second').fadeIn(300);
+					}
 				}
 
 			}
 
 		} else if ($(window).scrollTop() > 50) { // if my body scrolls more than 10 give my main nav a relative position
-			
+			$('a.logoToggle').removeClass('hidden');
 			$('#nav').addClass('on');
 
 		} else {
-
+			$('a.logoToggle').addClass('hidden');
 			$('#nav').removeClass('on');
 		}
 
@@ -416,35 +442,39 @@ var scrollIntro = function(){
 
 // localscroll and practice nav highlighting
 var practiceMenu = function(){
+	if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
+	
+		$('ul.menu li a').each(function() {
+			$(this).click(function(e){
+				e.preventDefault();
+				$('ul.menu li a').removeClass('active');
+				$(this).addClass('active');
+				var url = $(this).attr('href').split('#');
+				var anchor = '#'+url[1];
+				console.log(anchor);
+				$(window).scrollTo(anchor, 600, {
+					offset: -80
+				});
 
-	$('ul.menu li a').each(function() {
-		$(this).click(function(e){
-			e.preventDefault();
-			$('ul.menu li a').removeClass('active');
-			$(this).addClass('active');
-			var url = $(this).attr('href').split('#');
-			var anchor = '#'+url[1];
-			console.log(anchor);
-			$(window).scrollTo(anchor, 600, {
-				offset: -80
 			});
-
 		});
-	});
 
-	$('ul.menu li:first-child a').addClass('active');
-	console.log('practiceMenu init');
+		$('ul.menu li:first-child a').addClass('active');
+		console.log('practiceMenu init');
+	
+	}
 	
 };
 
 // ajax for the link
 var ajaxLink = function(elem){
 	console.log('ajaxLink init');
+
 	$(elem).on('click', function(e){
 		e.preventDefault();
 		var address = $(this).attr('href');
 		history.pushState(address, '', address);
-		$('#first li:not(:last-child) a').removeClass('active');
+		$('#first li a').removeClass('active');
 		if (elem == 'a.single') {
 			$('#first li:first-child a').addClass('active');
 		} else {
@@ -454,6 +484,7 @@ var ajaxLink = function(elem){
 		ajaxCall(address);
 
 	});
+
 };
 
 var textToggle = function(){
@@ -474,11 +505,15 @@ var textToggle = function(){
 };
 
 var newsTitle = function(){
-	var imageWidth = $('.full div.image').width() / 2;
-	var titleWidth = $('.image h2').outerWidth() / 2;
-	$('.image h2').css({'margin-left': (imageWidth - titleWidth), 'margin-top' : '240px' });
-	//slideTitlePosition('.full div.image', '.image h2');
-	console.log('newsTitle init');
-	$('.image h2').animate({'opacity': 1}, 300);
+	if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
+		var imageWidth = $('.full div.image').width() / 2;
+		var titleWidth = $('.image h2').outerWidth() / 2;
+		var titleHeight = $('.image h2').outerHeight() / 2;
+		var imageHeight = $('.full div.image').height() / 2;
+		$('.image h2').css({'margin-left': (imageWidth - titleWidth), 'margin-top' : (imageHeight - titleHeight) });
+		//slideTitlePosition('.full div.image', '.image h2');
+		console.log('newsTitle init');
+		$('.image h2').animate({'opacity': 1}, 300);
+	}
 };
 

@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Lawrence &amp; Long Architects</title>
 	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<!-- build:css(.tmp) styles/styles.css -->
 	<link rel="stylesheet" href="styles/styles.css">
@@ -39,19 +39,20 @@
 
 	<section id="nav">
 		<nav>
+			<ul><li><a class="logoToggle" href="#page">Lawrence &amp; Long</a></li></ul>
 			<ul id="first">
 				<li><a href="projects.html">Projects</a></li>
 				<li><a href="practice.html">Practice</a></li>
 				<li><a href="news.html">News</a></li>
-				<li><a class="introToggle" href="#page"><span></span></a></li>
+				<li><a class="introToggle hidden" href="#page"><span></span></a></li>
 			</ul>
 			<ul id="second" class="home">
-				<li><a href="category.html">Everything</a></li>
-				<li><a href="category.html">Residential</a></li>
-				<li><a href="category.html">Commerical</a></li>
-				<li><a href="category.html">Conservation</a></li>
-				<li><a href="category.html">Education</a></li>
-				<li><a href="category.html">Public Buildings</a></li>
+				<li><a href="#" data-filter="*">Everything</a></li>
+				<li><a href="#" data-filter=".residential">Residential</a></li>
+				<li><a href="#" data-filter=".commercial">Commerical</a></li>
+				<li><a href="#" data-filter=".conservation">Conservation</a></li>
+				<li><a href="#" data-filter=".education">Education</a></li>
+				<li><a href="#" data-filter=".public">Public Buildings</a></li>
 			</ul>
 		</nav>
 	</section>
