@@ -1,0 +1,6 @@
+2014-01-30 11:14:28	admin	http://landl/	Parse Error: 	syntax error, unexpected '}' (line 50 of /Users/sean/Dropbox/Sites/landl/pw/site/templates/head.inc)
+2014-01-30 11:22:33	admin	http://landl/	Parse Error: 	syntax error, unexpected 'foreach' (T_FOREACH), expecting ',' or ';' (line 59 of /Users/sean/Dropbox/Sites/landl/pw/site/templates/head.inc)
+2014-01-30 12:32:12	admin	http://landl/practice/	Parse Error: 	syntax error, unexpected 'person' (T_STRING), expecting ',' or ';' (line 43 of /Users/sean/Dropbox/Sites/landl/pw/site/templates/practice.php)
+2014-01-30 14:28:16	admin	http://landl/projects/	Parse Error: 	syntax error, unexpected 'YO' (T_STRING) (line 7 of /Users/sean/Dropbox/Sites/landl/pw/site/templates/projects.php)
+2014-01-30 14:28:21	admin	http://landl/projects/	Parse Error: 	syntax error, unexpected 'YO' (T_STRING) (line 7 of /Users/sean/Dropbox/Sites/landl/pw/site/templates/projects.php)
+2014-01-30 15:53:36	admin	http://landl/practice/	Parse Error: 	syntax error, unexpected '}' (line 68 of /Users/sean/Dropbox/Sites/landl/pw/site/templates/practice.php)
