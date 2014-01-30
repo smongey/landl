@@ -31,15 +31,15 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 	'use strict';
 
 	$('body').addClass('hidden');
-
+	console.log(window.location.href +'  '+location.pathname);
 	$(document).ready(function() {
 		
 		// HOMEPAGE
-		if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/') {
+		if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://landl/' || window.location.href === 'http://smongey.github.io/landl/') {
 
 			$('body').delay(2000).removeClass('hidden');
 			isotopeLoad('.item', 60, 100);
-		
+
 		// PROJECTS
 		} else if (location.pathname.indexOf('projects') > -1) {
 
@@ -47,7 +47,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
-					$('a.logoToggle').removeClass('locked');
+					$('a.logoToggle').removeClass('locked hidden');
 				});
 				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
@@ -61,6 +61,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 					$('#second').removeClass('home').fadeIn(0);
 				}
 				$('#first li:first-child a, #second li:first-child a').addClass('active');
+				
 			});
 
 
@@ -71,7 +72,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
-					$('a.logoToggle').removeClass('locked');
+					$('a.logoToggle').removeClass('locked hidden');
 				});
 				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
@@ -94,7 +95,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
-					$('a.logoToggle').removeClass('locked');
+					$('a.logoToggle').removeClass('locked hidden');
 				});
 				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
@@ -117,7 +118,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
-					$('a.logoToggle').removeClass('locked');
+					$('a.logoToggle').removeClass('locked hidden');
 				});
 				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
@@ -131,12 +132,15 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 			});
 			newsTitle();
 
+			mobileNewsTitle();
 
 		}
 
 		sliderLoad('slider', 500);
 		scrollIntro();
-
+		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
+			$('#next, #prev').hide();
+		}
 
 	}); //end doc ready
 
@@ -193,7 +197,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 		} else {
 			$(window).scrollTo('#page', 400, function(){
 
-				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/') {
+				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://landl/' || window.location.href === 'http://smongey.github.io/landl/') {
 
 					$('#second').addClass('home').fadeIn(300);
 
@@ -215,7 +219,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 		}
 	});
 	
-	ajaxLink('#first li a, a.logo, a.single, a.back');
+	ajaxLink('#first li a');
 
 	$(window).on('resize', function() {
 		//slideTitlePosition();
@@ -231,7 +235,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 // Ajax call
 var ajaxCall = function(address){
 
-	if (address.indexOf('/') > -1 || window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/') {
+	if (address.indexOf('/') > -1 || window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://landl/' || window.location.href === 'http://smongey.github.io/landl/') {
 		
 		$(window).scrollTo(0, 300, function(){
 			$('#page > *').fadeOut(500, function(){});
@@ -255,52 +259,103 @@ var ajaxCall = function(address){
 
 	} else {
 		
-		$(window).scrollTo('#page', 300, function(){
-			$('#page > *').fadeOut(500, function(){});
-			$('#page').hide().load(address + ' #page > *', function(){
-				$(this).fadeIn('150');
 
-				if (address.indexOf('projects') > -1) {
-					if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
-						$('#second').hide().removeClass('home').fadeIn(300);
-					}
-					$('.practice ul.menu').fadeOut(300);
-					isotopeLoad('.item', 60, 100);
-					ajaxLink('a.single');
-					console.log('projects ajax load');
-				
-				} else if (address.indexOf('project') > -1) {
-				
-					$('#second').fadeOut(300);
-					$('.practice ul.menu').fadeOut(300);
-					ajaxLink('a.back');
-					textToggle();
-					console.log('project ajax load');
-
-				} else if (address.indexOf('practice') > -1) {
-					
-					$('#second').fadeOut(300);
-					$('.practice ul.menu').fadeIn(300);
-					practiceMenu();
-					console.log('practice ajax load');
-					
-					
-				} else if (address.indexOf('news') > -1) {
-					
-					$('#second').fadeOut(300);
-					newsTitle();
-					console.log('news ajax load');
-
-				} else {
-				
-					$('#second').fadeOut(300);
-					console.log('default ajax load');
-				
-				}
-
-			});
+		// condition which changes the order of the scroll->fade in->ajax so as not to double load on iphone the scroll then fade in
+		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
 			
-		});
+			$(window).scrollTo('#page', 300, function(){
+				$('#page > *').fadeOut(500, function(){});
+				$('#page').hide().load(address + ' #page > *', function(){
+					$(this).fadeIn('150');
+					if (address.indexOf('projects') > -1) {
+						$('.practice ul.menu').fadeOut(300);
+						isotopeLoad('.item', 60, 100);
+						ajaxLink('a.single');
+						console.log('projects ajax load');
+					
+					} else if (address.indexOf('project') > -1) {
+					
+						$('#second').fadeOut(300);
+						$('.practice ul.menu').fadeOut(300);
+						ajaxLink('a.back');
+						textToggle();
+						console.log('project ajax load');
+
+					} else if (address.indexOf('practice') > -1) {
+						
+						$('#second').fadeOut(300);
+						$('.practice ul.menu').fadeIn(300);
+						practiceMenu();
+						console.log('practice ajax load');
+						
+						
+					} else if (address.indexOf('news') > -1) {
+						
+						$('#second').fadeOut(300);
+						newsTitle();
+						mobileNewsTitle();
+						console.log('news ajax load');
+
+					} else {
+					
+						$('#second').fadeOut(300);
+						console.log('default ajax load');
+					}
+				});
+			});
+				
+		} else {
+
+			$(window).scrollTo('#page', 300, function(){
+				$('#page > *').fadeOut(500, function(){
+					$('#page').hide().load(address + ' #page > *', function(){
+						$(this).fadeIn('150');
+
+						if (address.indexOf('projects') > -1) {
+							$('#second').hide().removeClass('home').fadeIn(300);
+							$('.practice ul.menu').fadeOut(300);
+							isotopeLoad('.item', 60, 100);
+							ajaxLink('a.single');
+							console.log('projects ajax load');
+						
+						} else if (address.indexOf('project') > -1) {
+						
+							$('#second').fadeOut(300);
+							$('.practice ul.menu').fadeOut(300);
+							ajaxLink('a.back');
+							textToggle();
+							console.log('project ajax load');
+
+						} else if (address.indexOf('practice') > -1) {
+							
+							$('#second').fadeOut(300);
+							$('.practice ul.menu').fadeIn(300);
+							practiceMenu();
+							console.log('practice ajax load');
+							
+							
+						} else if (address.indexOf('news') > -1) {
+							
+							$('#second').fadeOut(300);
+							newsTitle();
+							mobileNewsTitle();
+							console.log('news ajax load');
+
+						} else {
+						
+							$('#second').fadeOut(300);
+							console.log('default ajax load');
+						
+						}
+
+					});
+				});
+				
+			});
+		}
+
+
+
 		$(window).on('popstate', function(){
            address = location.pathname.replace(/^.*[\\\/]/, ''); //get filename only
            ajaxCall(address);
@@ -340,6 +395,20 @@ var isotopeLoad = function(item, gutter, column){
 	console.log('isotope loaded');
 
 };
+
+// Mobile News Title
+var mobileNewsTitle = function(){
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
+		$('.profile p').css({'opacity' : '1'});
+		$('.news .full .image h2').css({
+			'background' : 'transparent',
+			'padding' : '0'
+		});
+		$('.news .full .image img').css({
+			'margin-top' : '50px'
+		});
+	}
+}
 
 // Centre thumbnail titles and images on projects page
 var centreThumbs = function(item) {
@@ -399,7 +468,7 @@ var sliderLoad = function(id, speed){
 // Scroll watching intro toggler
 var scrollIntro = function(){
 
-	$(window).on('scroll touchmove', function() {
+	$(window).on('scroll', function() {
 		
 		var pageOffset = window.pageYOffset;
 		var slideTitlePos = $('#slider').height() / 2 - 30;
@@ -418,7 +487,7 @@ var scrollIntro = function(){
 				$(window).scrollTo(0, 1);
 				$('#nav').removeClass().addClass('top');
 				$('a.logoToggle').addClass('locked');
-				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://smongey.github.io/landl/' || location.pathname.indexOf('projects') > -1) {
+				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://landl/' || window.location.href === 'http://smongey.github.io/landl/' || location.pathname.indexOf('projects') > -1) {
 					if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
 						// nada
 					} else {
@@ -453,7 +522,7 @@ var practiceMenu = function(){
 				var anchor = '#'+url[1];
 				console.log(anchor);
 				$(window).scrollTo(anchor, 600, {
-					offset: -80
+					offset: -125
 				});
 
 			});
@@ -516,4 +585,3 @@ var newsTitle = function(){
 		$('.image h2').animate({'opacity': 1}, 300);
 	}
 };
-
