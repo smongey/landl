@@ -219,7 +219,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 		}
 	});
 	
-	ajaxLink('#first li a');
+	//ajaxLink('#first li a, a.logo, a.single, a.back');
 
 	$(window).on('resize', function() {
 		//slideTitlePosition();
