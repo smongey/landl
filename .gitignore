@@ -3,3 +3,4 @@ node_modules
 .sass-cache
 app/bower_components
 pw/site/modules/ProCache
+pw/site/config-dev.php

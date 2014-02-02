@@ -88,7 +88,8 @@ body.hidden, .hidden { opacity: 0; @include single-transition(all, ease, 0.2s); 
 	}
 
 	#contact { 
-		display: block; height:600px; background: $wgrey;
+		display: block; height:600px; background: $wgrey; position: relative;
+		a { bottom:0px; position: absolute; margin-bottom: -35px; }
 	}
 
 }

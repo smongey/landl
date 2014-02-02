@@ -21,7 +21,7 @@ include("./head.inc");
 						<?php echo $page->studio_info; ?>
 					</div>	
 					<div class="right">
-						<?php foreach($page->studio_image as $image) { echo "<img src='$image->url' alt='$image->description'>"; } ?>
+						<?php foreach($page->studio_image as $image) {  $resized = $image->width(350); echo "<img src='$resized->url' alt='$image->description'>"; } ?>
 					</div>
 				</div>
 
@@ -50,15 +50,12 @@ include("./head.inc");
 						echo "</div>";
 					} ?>
 				</div>
-
-				<div id="contact">
-					<?php
-					foreach($page->map as $map) {  
-						foreach($map->map_image as $image) { echo "<img src='$image->url' alt='$image->description'>"; } ?>
-						<br/>
-						<a href="<?php echo $map->map_link; ?>">On Google Maps</a>
-					<?php } ?>
+				<?php
+					foreach($page->map as $map) { ?>
+				<div id="contact" style="background: transparent url('<?php foreach($map->map_image as $image) { echo "$image->url"; } ?>') no-repeat;">
+						<a href="<?php echo $map->map_link; ?>">On Google Maps</a>		
 				</div>
+				<?php } ?>
 
 			</div> 
 		</div>

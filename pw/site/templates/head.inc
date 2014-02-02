@@ -48,17 +48,15 @@
 					echo "<li><a href='{$news->url}'>{$news->title}</a></li>";
 				?>
 			</ul>
-			<ul id="second" class="home">
-				<?php 
-				$categories = $pages->get(1014); 
+			<ul id="second">
+				<?php $categories = $pages->get(1014); 
 				$children = $categories->children;
-					echo "<li><a href='#' data-filter='*'>Everything</a></li>";
-					foreach($children as $child) {
-					
-						$lowered = strtolower($child->title);
-						echo "<li><a href='#' data-filter='.". $lowered ."'>{$child->title}</a></li>";
-					}
-				?>
+				echo "<li><a href='#' data-filter='*'>Everything</a></li>";
+				foreach($children as $child) {
+				
+					$lowered = strtolower($child->title);
+					echo "<li><a href='#' data-filter='.". $lowered ."'>{$child->title}</a></li>";
+				} ?>
 			</ul>
 		</nav>
 	</section>

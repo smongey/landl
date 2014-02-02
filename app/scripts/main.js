@@ -31,18 +31,19 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 	'use strict';
 
 	$('body').addClass('hidden');
-	console.log(window.location.href +'  '+location.pathname);
+	var home = window.location.hostname;	
+
 	$(document).ready(function() {
 		
 		// HOMEPAGE
-		if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://landl/' || window.location.href === 'http://smongey.github.io/landl/') {
-
+		if (window.location.href == 'http://'+home+':9000/' || window.location.href == 'http://'+home+'/') {
+			console.log('HOME init');
 			$('body').delay(2000).removeClass('hidden');
 			isotopeLoad('.item', 60, 100);
 
 		// PROJECTS
 		} else if (location.pathname.indexOf('projects') > -1) {
-
+			console.log('PROJECTS init');
 			$(window).scrollTo('#page', 0, function(){
 
 				$('#nav').fadeOut(0, function(){
@@ -67,7 +68,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 		// SINGLE PROJECT
 		} else if (location.pathname.indexOf('project') > -1) {
-
+			console.log('SINGLE init');
 			$(window).scrollTo('#page', 0, function(){
 
 				$('#nav').fadeOut(0, function(){
@@ -90,7 +91,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 		// PRACTICE
 		} else if (location.pathname.indexOf('practice') > -1) {
-
+			console.log('PRACTICE init');
 			$(window).scrollTo('#page', 0, function(){
 				
 				$('#nav').fadeOut(0, function(){
@@ -112,7 +113,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 			
 		// NEWS
 		} else if (location.pathname.indexOf('news') > -1) {
-
+			console.log('NEWS init');
 
 			$(window).scrollTo('#page', 0, function(){
 				
@@ -197,7 +198,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 		} else {
 			$(window).scrollTo('#page', 400, function(){
 
-				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://landl/' || window.location.href === 'http://smongey.github.io/landl/') {
+				if (window.location.href == 'http://'+home+':9000/' || window.location.href == 'http://'+home+'/') {
 
 					$('#second').addClass('home').fadeIn(300);
 
@@ -219,7 +220,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 		}
 	});
 	
-	//ajaxLink('#first li a, a.logo, a.single, a.back');
+	ajaxLink('#first li a, a.logo, a.single, a.back');
 
 	$(window).on('resize', function() {
 		//slideTitlePosition();
@@ -234,8 +235,13 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 // Ajax call
 var ajaxCall = function(address){
+	console.log(address);
 
-	if (address.indexOf('/') > -1 || window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://landl/' || window.location.href === 'http://smongey.github.io/landl/') {
+	// Check if its the homepage by looking for div.home within the #page
+	if (window.location.href == 'http://'+home+':9000/' || window.location.href == 'http://'+home+'/') {
+		
+		console.log($('#page > .home').length);
+
 		
 		$(window).scrollTo(0, 300, function(){
 			$('#page > *').fadeOut(500, function(){});
@@ -537,8 +543,6 @@ var practiceMenu = function(){
 
 // ajax for the link
 var ajaxLink = function(elem){
-	console.log('ajaxLink init');
-
 	$(elem).on('click', function(e){
 		e.preventDefault();
 		var address = $(this).attr('href');
