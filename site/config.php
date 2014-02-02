@@ -216,8 +216,8 @@ $config->dbLowercaseTables = true;
  */
 $config->dbHost = 'localhost';
 $config->dbName = 'landl';
-$config->dbUser = 'root';
-$config->dbPass = 'root';
+$config->dbUser = 'landl';
+$config->dbPass = 'S3anm0ng3y';
 $config->dbPort = '3306';
 
 /**

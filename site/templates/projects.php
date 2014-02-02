@@ -8,196 +8,36 @@ include("./head.inc");
 			<div id="container">
 
 				<ul>
-					<li class="item residential commercial">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Residential</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
 
-					<li class="item commercial">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Commercial</h3><img alt="" src="http://placehold.it/280x180">
-							</div>
-						</a>
-					</li>
+				<?php 
+				$projects = $pages->get(1009); 
+				$children = $projects->children;
+					foreach($children as $child) {
+						$image = $child->project_images->first();
+						if($image->width >= $image->height) { 
+							$image = $child->project_images->first()->width(280);
+						} else {
+							$image = $child->project_images->first()->height(280);
+						}
 
-					<li class="item residential">
-						<a class="single" href="project.html">
+						$categories = $child->category;
+					?>
+					<li class="item <?php foreach($categories as $category) {  
+					
+						$c = $category->title;
+						$c = strtolower($c);
+						echo $c . ' ';
+					
+					} ?>">
+						<a class="single" href="<?php echo "{$child->url}"?>">
 							<div class="project-thumbnail">
-								<h3 class="project-title">Residential</h3><img alt="" src="http://placehold.it/215x280">
+								<h3 class="project-title"><?php echo "{$child->title}"; ?></h3>
+								<img alt="" src="<?php echo "{$image->url}" ?>">
 							</div>
 						</a>
 					</li>
+					<?php } ?>
 
-					<li class="item conservation">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Conservation</h3><img alt="" src="http://placehold.it/280x215">
-							</div>
-						</a>
-					</li>
-
-					<li class="item conservation">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Project Title</h3><img alt="" src="http://placehold.it/280x180">
-							</div>
-						</a>
-					</li>
-
-					<li class="item residential">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Residential</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item residential">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Residential</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item residential">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Residential</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item residential">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Residential</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item commercial">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">commercial</h3><img alt="" src="http://placehold.it/280x180">
-							</div>
-						</a>
-					</li>
-
-					<li class="item commercial">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Commercial</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item conservation">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">conservation</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item education">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Education</h3><img alt="" src="http://placehold.it/280x180">
-							</div>
-						</a>
-					</li>
-
-					<li class="item public">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Public</h3><img alt="" src="http://placehold.it/180x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item public">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Public</h3><img alt="" src="http://placehold.it/280x180">
-							</div>
-						</a>
-					</li>
-
-					<li class="item education">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Education</h3><img alt="" src="http://placehold.it/180x280">
-							</div>
-						</a>
-					</li>
-					<li class="item conservation">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">conservation</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item residential">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Residential</h3><img alt="" src="http://placehold.it/280x180">
-							</div>
-						</a>
-					</li>
-
-					<li class="item conservation">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">conservation</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item public">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Public</h3><img alt="" src="http://placehold.it/215x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item education">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Education</h3><img alt="" src="http://placehold.it/280x180">
-							</div>
-						</a>
-					</li>
-
-					<li class="item conservation">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Conservation</h3><img alt="" src="http://placehold.it/180x280">
-							</div>
-						</a>
-					</li>
-
-					<li class="item commercial">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Commercial</h3><img alt="" src="http://placehold.it/280x180">
-							</div>
-						</a>
-					</li>
-
-					<li class="item residential">
-						<a class="single" href="project.html">
-							<div class="project-thumbnail">
-								<h3 class="project-title">Residential</h3><img alt="" src="http://placehold.it/180x280">
-							</div>
-						</a>
-					</li>
 				</ul>
 
 			</div> 
