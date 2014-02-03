@@ -4,3 +4,4 @@ node_modules
 app/bower_components
 pw/site/modules/ProCache
 pw/site/config-dev.php
+pw/site/assets

@@ -19,13 +19,19 @@
 	<section id="intro">
 		<div class="swipe" id="slider">
 			<div class="swipe-wrap">
-				<div class="bg first">
-					<h2>Slide One</h2>
-				</div>
 
-				<div class="bg second">
-					<h2>Slide Title 2</h2>
-				</div>
+					<?php 
+
+					$home = $pages->get("/");
+					foreach($home->slider as $slide) { 
+
+						$image = $slide->slide_image->first();
+
+						echo "<div class='bg' style='background:url({$image->url}) no-repeat; background-size: cover;'>";
+						echo "<a href='{$slide->slide_link}'><h2>{$slide->slide_title}</h2></a>";
+						echo "</div>";
+						
+					} ?>
 			</div>
 		</div>
 		<div id="logo">

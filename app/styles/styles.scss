@@ -255,7 +255,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 
 
 		.one { margin-bottom: 30px; @include single-transition(all, ease, 0.3s);
-			img { z-index: 300; }
+			img { z-index: 300; max-width: 100%; }
 			&:hover { p.caption { opacity: 0; } }
 		}
 		.two { margin-bottom: 30px; @include single-transition(all, ease, 0.3s);

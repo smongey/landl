@@ -1,13 +1,8 @@
-<?php 
+<?php
 // Homepage
-include("./head.inc"); 
+include("./head.inc");
 ?>
 
-<?php
-if($config->ajax) {
-	echo "FUCK";
-}
-?>
 		<div class="home">
 			<div id="container">
 
@@ -43,9 +38,9 @@ if($config->ajax) {
 					</li>
 
 				</ul>
-				
-			</div> 
-			
+
+			</div>
+
 		</div>
 
 <?php include("./foot.inc"); ?>

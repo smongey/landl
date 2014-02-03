@@ -13,14 +13,10 @@ include("./head.inc");
 				$projects = $pages->get(1009); 
 				$children = $projects->children;
 					foreach($children as $child) {
-						$image = $child->project_images->first();
-						if($image->width >= $image->height) { 
-							$image = $child->project_images->first()->width(280);
-						} else {
-							$image = $child->project_images->first()->height(280);
-						}
+
 
 						$categories = $child->category;
+						
 					?>
 					<li class="item <?php foreach($categories as $category) {  
 					
@@ -32,7 +28,27 @@ include("./head.inc");
 						<a class="single" href="<?php echo "{$child->url}"?>">
 							<div class="project-thumbnail">
 								<h3 class="project-title"><?php echo "{$child->title}"; ?></h3>
-								<img alt="" src="<?php echo "{$image->url}" ?>">
+
+								<?php
+
+								$first = true;
+								foreach ( $child->project_layout as $image ) {
+									if ( $first ) {
+										$img = $image->project_images->first();
+
+										if ($img->width >= $img->height) { 
+											$img = $img->width(280);
+										} else {
+											$img = $img->height(280);
+										}
+
+										echo '<img src="' . $img->url . '" alt="' . $thumb->description . '">';
+										$first = false;
+									} else {
+									}
+								}
+
+								?>
 							</div>
 						</a>
 					</li>
