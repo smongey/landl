@@ -15,7 +15,6 @@
 		</footer>
 
 	</section><!-- .page -->
-
-	<script data-main="<?php echo $config->urls->templates?>dist/scripts/main" src="<?php echo $config->urls->templates?>dist/bower_components/requirejs/require.js"></script>
+	<script data-main="<?php echo $config->urls->templates?>dist/scripts/8640302b.main" src="<?php echo $config->urls->templates?>dist/bower_components/requirejs/require.js"></script>
 </body>
 </html>

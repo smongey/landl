@@ -8,10 +8,10 @@ include("./head.inc");
 			<div id="container">
 				<div class="textwrap">
 					<div class="text">
-						<span class="category">Residential</span>
+						<span class="category"><?php foreach($page->category as $category) { echo "$category->title" . "&nbsp;&nbsp;&nbsp;"; } ?></span>
 						<div>
-							<h1>Greystones</h1>
-							<p>A sunken courtyard was created by excavating the sloping ground to the side of an existing terraced house. This courtyard provides an aspect and daylight to a new living room attached to the existing. The roof of the new addition acts as a roof terrace and an extension of the rear garden providing views to the mountains beyond.</p>
+							<h1><?php echo "$page->title"; ?></h1>
+							<?php echo "$page->project_info"; ?>
 						</div>
 						<a href="#" class="info">Hide info</a><br>
 						<a href="projects.html" class="back">Back to Projects</a>
@@ -19,48 +19,29 @@ include("./head.inc");
 				</div>
 
 				<div class="images">
-					<div class="one">
-						<img src="http://placehold.it/540x700" alt="One">
-						<p class="caption">One</p>
-					</div>
-					<div class="two">
-						<div>
-							<img src="http://placehold.it/430x570" alt="Two">
-							<p class="caption">Two</p>
+					<?php foreach ($page->project_layout as $row) {
+						
+						$images = $row->project_images;
+						$col = $row->project_columns;
+
+						if($col == 1) {
+						?>
+						<div class="one">
+							<img src="<?php foreach ($images as $image) { echo $image->url; }; ?>" alt="<?php echo $image->description; ?>">
+							<p class="caption"><?php echo $image->description; ?></p>
 						</div>
-						<div>
-							<img src="http://placehold.it/430x570" alt="Three">
-							<p class="caption">Three</p>
+
+						<?php } else { ?>
+						<div class="two">
+							<?php foreach ($images as $image) { ?>
+								<div>
+									<img src="<?php echo $image->url; ?>" alt="<?php echo $image->description; ?>">
+									<p class="caption"><?php echo $image->description; ?></p>
+								</div>								 
+							<?php }; ?>
 						</div>
-					</div>
-					<div class="one">
-						<img src="http://placehold.it/540x700" alt="One">
-						<p class="caption">One</p>
-					</div>
-					<div class="two">
-						<div>
-							<img src="http://placehold.it/430x570" alt="Two">
-							<p class="caption">Two</p>
-						</div>
-						<div>
-							<img src="http://placehold.it/430x570" alt="Three">
-							<p class="caption">Three</p>
-						</div>
-					</div>					
-					<div class="one">
-						<img src="http://placehold.it/540x700" alt="One">
-						<p class="caption">One</p>
-					</div>
-					<div class="two">
-						<div>
-							<img src="http://placehold.it/430x570" alt="Two">
-							<p class="caption">Two</p>
-						</div>
-						<div>
-							<img src="http://placehold.it/430x570" alt="Three">
-							<p class="caption">Three</p>
-						</div>
-					</div>
+
+					<?php } } ?>
 				</div>
 
 			</div> 
