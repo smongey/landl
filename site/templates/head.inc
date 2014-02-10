@@ -61,6 +61,7 @@
 				foreach($children as $child) {
 				
 					$lowered = strtolower($child->title);
+					$lowered = str_replace(' ', '', $lowered);
 					echo "<li><a href='#' data-filter='.". $lowered ."'>{$child->title}</a></li>";
 				} ?>
 			</ul>

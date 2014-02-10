@@ -22,6 +22,7 @@ include("./head.inc");
 					
 						$c = $category->title;
 						$c = strtolower($c);
+						$c = str_replace(' ', '', $c);
 						echo $c . ' ';
 					
 					} ?>">
