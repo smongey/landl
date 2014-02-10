@@ -9,7 +9,7 @@ $wgrey: rgb(117, 102, 88);
 // SETUP
 *, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 body { padding: 0; margin: 0; overflow-y: scroll; @include single-transition(all, ease, 0.3s); }
-body, a, p, li, h1, h2, h3 { font:16px/22px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; color: #000; list-style: none; text-decoration: none; }
+body, a, p, li, h1, h2, h3 { font:14px/18px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; color: #000; list-style: none; text-decoration: none; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, nav, .practice ul, .category { -webkit-font-smoothing: antialiased; }
 body.hidden, .hidden { opacity: 0; @include single-transition(all, ease, 0.2s); }
 ::-moz-selection { background: lighten($wgrey, 50%); color: $wgrey; }
@@ -35,13 +35,13 @@ body.hidden, .hidden { opacity: 0; @include single-transition(all, ease, 0.2s); 
 
 #nav { width:100%; position: absolute; z-index: 900; bottom:0px; margin-bottom: 20px; @include single-transition(all, ease, .3s);
 	nav { max-width:1200px; margin: 0 auto; letter-spacing: 1px; }
-	li { display: inline-block; padding: 5px 7px; /* color: $wgrey; */ }
+	li { display: inline-block; padding: 5px 3px 5px 7px; /* color: $wgrey; */ }
 	a { color: #fff; @include single-transition(all, ease, .3s); }
 	a.active { border-bottom: 1px solid #fff; color: #fff; }
-	&.on {  margin-bottom: -90px; 
+	&.on {  margin-bottom: -90px;
 		a { color:$wgrey; }
 	}
-	&.top { position:fixed; top:30px; margin-bottom: 0px; bottom: inherit; @include single-transition(all, ease, 0s); 
+	&.top { position:fixed; top:30px; margin-bottom: 0px; bottom: inherit; @include single-transition(all, ease, 0s);
 		a { color:$wgrey; }
 		a.active { border-bottom: 1px solid #000; color: #000; }
 	}
@@ -59,35 +59,37 @@ body.hidden, .hidden { opacity: 0; @include single-transition(all, ease, 0.2s); 
 
 	ul.menu { max-width:1200px; margin: 0 auto; letter-spacing: 1px; text-align: left; display: none;
 		li { display: block; padding: 0px 5px; }
-		li a { font:22px/29px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .3px; color:$wgrey; @include single-transition(all, ease, 0.2s);
+		li a { letter-spacing: 1px; color:$wgrey; @include single-transition(all, ease, 0.2s);
 			&:hover { color: #000; }
 			&.active { color: #000; }
 		}
 	}
 
-	#studio, #people, #awards, #publications, #contact { text-align: left; margin-bottom: 100px; color:$wgrey; 
+	#studio, #people, #awards, #publications, #contact { text-align: left; margin-bottom: 100px; color:$wgrey;
 		p, h4 {  }
-		h3 { font:21px/27px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .3px; margin-bottom: 20px; color:$wgrey;  }
+		h3 { letter-spacing: .3px; margin-bottom: 20px; color:$wgrey; padding-right: 30px;  }
 		img {  }
 		.left { display:inline-block; vertical-align:top; width:49%; }
 		.right { display:inline-block; vertical-align:top; width:49%; text-align: right; padding-right: 50px; }
 		.person, .press { display:inline-block; vertical-align:top; width: 30%; padding-right: 20px; margin-bottom: 30px; }
 	}
-	#studio { margin-top: -25px; }
+	#studio { margin-top: -25px;
+		h3 { line-height: 21px; }
+	}
 	#people, #publications {
-		h4, p { color:$wgrey; margin-bottom: 30px; font:14px/19px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .7px; }
+		h4, p { color:$wgrey; margin-bottom: 30px; font:14px/19px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .3px; }
 		a { font:14px/19px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; color: #000; @include single-transition(all, ease, 0.2s); border-bottom: 1px solid #fff; }
 		a:hover { border-bottom: 1px solid $wgrey; }
 	}
-	
+
 	#awards { margin-bottom: 150px;
-		ul { 
-			li { font:18px/36px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; color: $wgrey; }
+		ul {
+			li { line-height: 26px; color: $wgrey; }
 			span { width:80px; display: inline-block; }
 		}
 	}
 
-	#contact { 
+	#contact {
 		display: block; height:600px; background: $wgrey; position: relative;
 		a { bottom:0px; position: absolute; margin-bottom: -35px; }
 	}
@@ -96,11 +98,11 @@ body.hidden, .hidden { opacity: 0; @include single-transition(all, ease, 0.2s); 
 
 a.logoToggle {  color: #000 !important; }
 
-a.introToggle { 
+a.introToggle {
 	span { display: inline-block; vertical-align: middle; margin-left:5px; width:20px; height:15px; background: url(../images/top.svg) 0 0 no-repeat; @include single-transition(all, ease, 0.2s); }
 	&:before { content: 'see more'; }
-	&.locked { 
-		span { background: url(../images/top.svg) 0 -15px no-repeat; }  
+	&.locked {
+		span { background: url(../images/top.svg) 0 -15px no-repeat; }
 	}
 	&.locked:before { content: ''; }
 	&.locked.past:before { content: 'up'; }
@@ -151,7 +153,7 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 10px;
   font-size: 12px;
-  // -webkit-font-smoothing: antialiased;
+  //
 
 }
 
@@ -159,14 +161,22 @@ h1 {
 // Page elements
 
 footer { background: white; position: relative; width: 100%; z-index: 500; padding: 60px 0 100px 0;
-	#footer { width:100%; padding-left: 40%; padding-right:5%; text-align: left;
+	#footer { width:100%; padding-left: 7px; padding-right:5%; text-align: left;
+		p { padding-bottom: 7px; }
 		.social { display: inline-block; width: 25%;
 			a { display: block; }
 		}
 		address { display: inline-block; width: 30%; }
-		.contact { display: inline-block; width: 30%; 
+		.contact { display: inline-block; width: 30%;
 			a { white-space: nowrap; }
 		}
+		#facebook, #twitter, #vimeo { text-indent: -9999px; display: inline-block; width:20px; height:20px; margin: 0 4px; background:#e6e6e6; line-height: 24px; background: transparent url(../images/social.svg) 0 0 no-repeat; 
+  background-image: transparent url(../images/social.png) 0 0 no-repeat, none; -webkit-filter: grayscale(100%); opacity:.6;
+			&:hover { opacity: 1; -webkit-filter: grayscale(0%); }
+		}
+		#facebook { margin-left: -5px; }
+		#twitter { background-position: -20px 0; }
+		#vimeo { background-position: -40px 0; margin-right: 10px; }
 	}
 	a { @include single-transition(all, ease, 0.2s); }
 	a:hover { color: $wgrey; }
@@ -174,7 +184,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 }
 
 
-.item { margin-bottom: 60px; 
+.item { margin-bottom: 60px;
 	.project-thumbnail { height: 280px; text-align: center;
 		&:hover {
 
@@ -200,7 +210,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 	}
 }
 
-.projects .item { 
+.projects .item {
 	// background: aqua;
 	width: 280px;
 	height: 280px;
@@ -232,9 +242,9 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 
 
 .project {
-	.textwrap { width:100%; position: fixed; left:0; top:73px; margin: 0px; padding: 0; bottom: inherit; }
-	.text { max-width:1200px; margin: 0 auto; letter-spacing: 1px; text-align: left; padding: 7px; 
-		div { opacity: 1; @include single-transition(all, ease, 0.3s); width: 25%; z-index: 1; 
+	.textwrap { width:100%; position: fixed; left:0; top:73px; margin: 0px; padding: 0; bottom: inherit; z-index:100; }
+	.text { max-width:1200px; margin: 0 auto; letter-spacing: 1px; text-align: left; padding: 7px;
+		div { opacity: 1; @include single-transition(all, ease, 0.3s); width: 25%; z-index: 1;
 			&.hide { opacity: 0; }
 		}
 		.category { margin:20px 0 60px; display: block; color: $wgrey; }
@@ -242,7 +252,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 		p { margin-bottom: 20px; font:14px/19px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .7px; color:$wgrey; }
 		a { font:14px/19px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .7px; color:$wgrey; display: inline-block; padding: 5px 0 0 0; border-bottom: 1px solid #fff; width: inherit;  @include single-transition(all, ease, 0.2s); }
 		a:hover { border-bottom: 1px solid $wgrey; }
-		a.back { 
+		a.back {
 			&.hide { opacity: 0; }
 		}
 		div.links { }
@@ -273,7 +283,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 				img { }
 			}
 			.two { margin-bottom: 100px;
-				div { width:40%; 
+				div { width:40%;
 					img { max-width: 100%; }
 					&:first-child {
 						margin-right: 80px;
@@ -298,7 +308,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 				span { color:#000; }
 			}
 			.intro { display: inline-block; vertical-align: top; width:60%; padding-left: 80px;
-				p, a { -webkit-font-smoothing: antialiased; font:21px/27px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .3px; margin-bottom: 20px; color:$wgrey; }
+				p, a { font:16px/24px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .3px; margin-bottom: 20px; color:$wgrey; }
 				a { margin-top: 20px; display: inline-block; border-bottom:1px solid #fff; @include single-transition(all, ease, 0.2s); }
 				a:hover { border-bottom:1px solid $wgrey; }
 				a:before { content: 'Read more...'; }
@@ -315,7 +325,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 		.text { display: inline-block; vertical-align: top; width:49%; text-align: left; padding: 30px 70px 0;
 			.date { opacity:0; display: block; margin-bottom: 20px; text-transform: uppercase; color: $wgrey; font-size: 12px; letter-spacing: 1px; @include single-transition(all, ease, 0.5s); }
 			img { opacity:0; border-radius: 25px; display: inline-block; vertical-align: middle; margin-right: 15px; margin-left: -70px; margin-bottom: 30px; @include single-transition(all, ease, 0.5s); }
-			h3 { display: inline-block; vertical-align: middle; -webkit-font-smoothing: antialiased; font:24px/28px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .3px; margin-bottom: 30px; }
+			h3 { display: inline-block; vertical-align: middle; font:24px/28px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .3px; margin-bottom: 30px; }
 			p, a { color:$wgrey; font:14px/19px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; letter-spacing: .7px; }
 			a { margin-top: 20px; display: inline-block; border-bottom:1px solid #fff; @include single-transition(all, ease, 0.2s); }
 			a:hover { border-bottom:1px solid $wgrey; }
@@ -349,7 +359,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 	body { max-width: 100%; }
 	body, a, p, li, h1, h2, h3 { font:14px/20px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; }
 	.logo { font:10px/16px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; font-weight: normal; top:30px; }
-	#nav  { max-width:100%; width:100%; margin-bottom: 10px; 
+	#nav  { max-width:100%; width:100%; margin-bottom: 10px;
 		&.top { top:20px; }
 		nav { max-width:100%; width:100%; }
 		nav > ul { text-align: center; }
@@ -365,7 +375,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 	.project { margin-top: -10px !important;
 		.textwrap { position: relative; margin-bottom: 50px; top: inherit;
 			.category { text-align: center; margin: 0 0 20px 0; }
-			.text { width: 100%; 
+			.text { width: 100%;
 				div { width: 100%; }
 				div h1 { text-align: center; }
 			}
@@ -379,7 +389,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 		.two div:first-child { margin-right: 25px; }
 		img { width:100%; }
 	}
-	.practice { width:100%; margin-left: 0 !important; 
+	.practice { width:100%; margin-left: 0 !important;
 		nav { display: none; }
 		#studio:before { content:"Studio"; font:16px/22px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; color:#000; text-align: center; width: 100%; }
 		#people:before { content:"People"; font:16px/22px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; color:#000; text-align: center; width: 100%; }
@@ -393,10 +403,10 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 			img { max-width: 100%; }
 		}
 		#people .person { width:100% !important; padding-right: 0; }
-		#awards ul li { 
+		#awards ul li {
 			span { display: block; color: #000; }
 		}
-		#publications .press { width:100% !important; padding-right: 0; 
+		#publications .press { width:100% !important; padding-right: 0;
 			h4 { margin-bottom: 10px; }
 		}
 
@@ -410,13 +420,13 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 		 	.text { margin-top: 10px;
 		 		.profile { width:100%; padding: 0; margin-bottom: 15px;
 					p { opacity: 1; display: inline-block; width: 60%; padding: 10px 10px 0; font-size: 12px; margin-bottom: 0; vertical-align: top; }
-					img { display: inline-block; width: 25%; } 
+					img { display: inline-block; width: 25%; }
 			 	}
-			 	.intro { width:100%; padding: 0; 
+			 	.intro { width:100%; padding: 0;
 					p, a { font:14px/19px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; }
 					a.more { margin: 0 0 20px 0; border-bottom: 1px solid #ccc; }
 			  	}
-			} 	
+			}
 		}
 		.left, .right { margin-bottom: 50px;
 			.text { width: 100%; padding: 0;
@@ -425,7 +435,7 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 				h3 { padding-left:10px; font:16px/22px 'Graphik-Regular', 'Helvetica-Neue', arial, sans-serif; margin-bottom: 0px; }
 				p { margin-top: 10px; }
 			}
-			.image { width: 100%; margin: 10px 0 0 0; 
+			.image { width: 100%; margin: 10px 0 0 0;
 				img { max-width: 100%; }
 			}
 
@@ -450,24 +460,22 @@ footer { background: white; position: relative; width: 100%; z-index: 500; paddi
 	#nav nav, .project .text, .practice ul.menu { max-width: 90%; }
 	.project .images .one { margin-bottom: 20px;
 		img { max-width: 100%; }
-	} 
+	}
 	.project .images .two { margin-bottom: 20px;
 		div:first-child { margin-right: 9%; }
 		div { width: 45%; }
 	}
 	.news .full .text .profile { padding-right: 20px; }
-	.news .left .text { padding: 30px 45px 0; } 
-	.news .right .text { padding: 0 20px 0px 90px; } 
+	.news .left .text { padding: 30px 45px 0; }
+	.news .right .text { padding: 0 20px 0px 90px; }
 	.news .left .image, .news .right .image { padding-top: 10%; }
 }
 
 @media all and (max-width: 850px ) {
-
 	.news .full .text {
 		.profile { padding-right: 50px; padding-left: 0; }
 		.intro { width: 69%; padding-left: 50px; }
 	}
-
 	.news .left, .news .right { width: 100%;
 		.image { padding-top: 40px; }
 	}
