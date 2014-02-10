@@ -28,31 +28,33 @@ require.config({
 
 require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../scripts/modules/slider'],
 	function($, raphael, scrollTo, swipe, isotope, waypoints, slider) {
-	'use strict';
+	var home = window.location.hostname;	
 
 	$('body').addClass('hidden');
-	var home = window.location.hostname;
 
 	$(document).ready(function() {
+		var url = window.location.pathname.split( '/' );
+		console.log(url[1]);
+		console.log(url.length);
 
-		// HOMEPAGE
+		// HOME
 		if (window.location.href == 'http://'+home+':9000/' || window.location.href == 'http://'+home+'/') {
+			console.log('	HOME');
 
-			console.log('HOME init');
 			$('body').delay(2000).removeClass('hidden');
 			isotopeLoad('.item', 60, 100);
+			$('#second').addClass('home');
 
 		// PROJECTS
-		} else if (location.pathname.indexOf('projects') > -1) {
-
-			console.log('PROJECTS init');
+		} else if (url[1] == 'projects' && url.length == 3) {
+			console.log('	PROJECTS');
 			$(window).scrollTo('#page', 0, function(){
 
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
 					$('a.logoToggle').removeClass('locked hidden');
 				});
-
+				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
 				$('#page').animate({ 'margin-top': $(window).height() }, 0);
 				$('#second').fadeOut(0);
@@ -60,48 +62,47 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				$('#first li:not(:last-child) a').removeClass('active');
 				isotopeLoad('.item', 60, 100);
 				$('body').removeClass('hidden');
-				if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+				if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
 					$('#second').removeClass('home').fadeIn(0);
 				}
 				$('#first li:first-child a, #second li:first-child a').addClass('active');
-
+				
 			});
 
-		// SINGLE PROJECT
-		} else if (location.pathname.indexOf('project') > -1) {
 
-			console.log('SINGLE init');
+		// SINGLE
+		} else if (url[1] == 'projects' && url.length == 4) {
+			console.log('	SINGLE');
 			$(window).scrollTo('#page', 0, function(){
 
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
 					$('a.logoToggle').removeClass('locked hidden');
 				});
-
+				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
 				$('#page').animate({ 'margin-top': $(window).height() }, 0);
-				$('#second').fadeOut(0);
+
 				$('div.bg').css({'background-position-y' : '0' });
 				$('#first li:not(:last-child) a').removeClass('active');
-
+				
 				$('body').removeClass('hidden');
 				$('.project .text').fadeIn(0);
 				$('#first li:first-child a').addClass('active');
-
+				$('#second').addClass('hidden');
 			});
 			textToggle();
 
 		// PRACTICE
-		} else if (location.pathname.indexOf('practice') > -1) {
-
-			console.log('PRACTICE init');
+		} else if (url[1] == 'practice') {
+			console.log('	PRACTICE');
 			$(window).scrollTo('#page', 0, function(){
-
+				
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
 					$('a.logoToggle').removeClass('locked hidden');
 				});
-
+				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
 				$('#page').animate({ 'margin-top': $(window).height() }, 0);
 				$('div.bg').css({'background-position-y' : '0' });
@@ -110,22 +111,21 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				$('.practice ul.menu').fadeIn(0);
 				$('#first li:nth-child(2) a').addClass('active');
 				practiceMenu();
-
+		
 			});
 
-
+			
 		// NEWS
-		} else if (location.pathname.indexOf('news') > -1) {
-
-			console.log('NEWS init');
+		} else if (url[1] == 'news') {
+			console.log('	NEWS');
 
 			$(window).scrollTo('#page', 0, function(){
-
+				
 				$('#nav').fadeOut(0, function(){
 					$(this).removeClass().fadeIn(0);
 					$('a.logoToggle').removeClass('locked hidden');
 				});
-
+				
 				$('#intro').animate({ 'margin-top': 0 }, 0);
 				$('#page').animate({ 'margin-top': $(window).height() }, 0);
 				$('div.bg').css({'background-position-y' : '0' });
@@ -133,7 +133,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				$('body').removeClass('hidden');
 				$('#first li:nth-child(3) a').addClass('active');
 
-
+				
 			});
 			newsTitle();
 
@@ -143,19 +143,24 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 		sliderLoad('slider', 500);
 		scrollIntro();
-		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
 			$('#next, #prev').hide();
 		}
 
 	}); //end doc ready
 
+
+
 	$('a.logoToggle').on('click', function(e){
 		e.preventDefault();
 		$(this).addClass('hidden');
 
+		var url = window.location.pathname.split( '/' );
+		
+
 		// AT PAGE
 		if ($(this).hasClass('locked')) {
-
+			
 			if (window.pageYOffset > 0) {
 				console.log('yay');
 				$(window).scrollTo('#page', 400, function(){
@@ -164,7 +169,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 						$(this).removeClass().fadeIn(500);
 						$('a.logoToggle').removeClass('locked');
 					});
-
+					
 					scrollIntro();
 					$('#intro').animate({ 'margin-top': 0 }, 400);
 					$('#page').animate({ 'margin-top': $(window).height() }, 400);
@@ -172,7 +177,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 					$('.practice ul.menu').fadeOut(100);
 					$('.project .text').fadeOut(100);
 					$('div.bg').css({'background-position-y' : '0' });
-
+					
 				});
 
 			} else {
@@ -184,7 +189,7 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 				$('.practice ul.menu').fadeOut(100);
 				$('.project .text').fadeOut(100);
 				$('div.bg').css({'background-position-y' : '0' });
-
+				
 				$('#nav').fadeOut(300, function(){
 					$(this).removeClass().fadeIn(500);
 					$('a.logoToggle').removeClass('locked');
@@ -200,28 +205,33 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 		} else {
 			$(window).scrollTo('#page', 400, function(){
 
+				// HOME
 				if (window.location.href == 'http://'+home+':9000/' || window.location.href == 'http://'+home+'/') {
 
 					$('#second').addClass('home').fadeIn(300);
 
-				} else if (location.pathname.indexOf('projects') > -1) {
+				// PROJECTS
+				} else if (url[1] == 'projects' && url.length == 3) {
 
 					$('#second').removeClass('home').fadeIn(300);
 
-				} else if (location.pathname.indexOf('project') > -1) {
+				// SINGLE
+				} else if (url[1] == 'projects' && url.length == 4) {
 
 					$('.project .text').fadeIn(300);
-
-				} else if (location.pathname.indexOf('practice') > -1) {
+				
+				// PRACTICE
+				} else if (url[1] == 'practice') {
 
 					$('.practice ul.menu').fadeIn(300);
 
 				}
 			});
-
+			
 		}
 	});
-
+	
+	// INIT THE AJAX LINKS
 	ajaxLink('#first li a, a.logo, a.single, a.back');
 
 	$(window).on('resize', function() {
@@ -237,26 +247,33 @@ require(['jquery', 'raphael', 'scrollTo', 'swipe', 'isotope', 'waypoints', '../s
 
 // Ajax call
 var ajaxCall = function(address){
-	console.log(address);
+
+	// var url = address.replace(/\//g,"");
+	// console.log('	'+url);
+
+	var url = window.location.pathname.split( '/' );
+	console.log(url[1]);
+	console.log(url.length);
+
 
 	// Check if its the homepage by looking for div.home within the #page
 	if (window.location.href == 'http://'+home+':9000/' || window.location.href == 'http://'+home+'/') {
-
+		
 		console.log($('#page > .home').length);
 
-
+		
 		$(window).scrollTo(0, 300, function(){
 			$('#page > *').fadeOut(500, function(){});
 			$('#page').hide().load(address + ' #page > *', function(){
-
+				
 				$(this).fadeIn('slow');
 				isotopeLoad('.item', 60, 100);
 				$('#second').fadeOut(300);
-
+				
 				console.log('home ajax load');
-
+				
 			});
-
+			
 		});
 		$('#second').addClass('home').fadeIn(300);
 
@@ -266,52 +283,58 @@ var ajaxCall = function(address){
         });
 
 	} else {
-
+		
 
 		// condition which changes the order of the scroll->fade in->ajax so as not to double load on iphone the scroll then fade in
 		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-
+			
 			$(window).scrollTo('#page', 300, function(){
 				$('#page > *').fadeOut(500, function(){});
 				$('#page').hide().load(address + ' #page > *', function(){
-					$(this).fadeIn('150');
-					if (address.indexOf('projects') > -1) {
-						$('.practice ul.menu').fadeOut(300);
-						isotopeLoad('.item', 60, 100);
-						ajaxLink('a.single');
-						console.log('projects ajax load');
+					$(this).fadeIn('150', function(){
 
-					} else if (address.indexOf('project') > -1) {
+						// PROJECTS
+						if (url[1] == 'projects' && url.length == 3) {
+							console.log('		PROJECTS');
 
-						$('#second').fadeOut(300);
-						$('.practice ul.menu').fadeOut(300);
-						ajaxLink('a.back');
-						textToggle();
-						console.log('project ajax load');
+							$('.practice ul.menu').fadeOut(300);
+							isotopeLoad('.item', 60, 100);
+							ajaxLink('a.single');
+							
+						// SINGLE
+						} else if (url[1] == 'projects' && url.length == 4) {
+							console.log('		SINGLE');
 
-					} else if (address.indexOf('practice') > -1) {
+							$('#second').addClass('hidden');
+							$('.practice ul.menu').fadeOut(300);
+							ajaxLink('a.back');
+							textToggle();
 
-						$('#second').fadeOut(300);
-						$('.practice ul.menu').fadeIn(300);
-						practiceMenu();
-						console.log('practice ajax load');
+						// PRACTICE
+						} else if (url[1] == 'practice')  {
+							console.log('		PRACTICE');
 
+							$('#second').fadeOut(300);
+							$('.practice ul.menu').fadeIn(300);
+							practiceMenu();
+							
+						// NEWS						
+						} else if (url[1] == 'news')  {
+							console.log('		NEWS');
 
-					} else if (address.indexOf('news') > -1) {
+							$('#second').fadeOut(300);
+							newsTitle();
+							mobileNewsTitle();
 
-						$('#second').fadeOut(300);
-						newsTitle();
-						mobileNewsTitle();
-						console.log('news ajax load');
-
-					} else {
-
-						$('#second').fadeOut(300);
-						console.log('default ajax load');
-					}
+						} else {
+							console.log('		OTHER');						
+													
+							$('#second').fadeOut(300);
+						}
+					});
 				});
 			});
-
+				
 		} else {
 
 			$(window).scrollTo('#page', 300, function(){
@@ -319,46 +342,49 @@ var ajaxCall = function(address){
 					$('#page').hide().load(address + ' #page > *', function(){
 						$(this).fadeIn('150');
 
-						if (address.indexOf('projects') > -1) {
+						// PROJECTS
+						if (url[1] == 'projects' && url.length == 3) {
+							console.log('		PROJECTS')
+
 							$('#second').hide().removeClass('home').fadeIn(300);
 							$('.practice ul.menu').fadeOut(300);
 							isotopeLoad('.item', 60, 100);
 							ajaxLink('a.single');
-							console.log('projects ajax load');
-
-						} else if (address.indexOf('project') > -1) {
+						
+						// SINGLE
+						} else if (url[1] == 'projects' && url.length == 4) {
+							console.log('		SINGLE');
 
 							$('#second').fadeOut(300);
 							$('.practice ul.menu').fadeOut(300);
 							ajaxLink('a.back');
 							textToggle();
-							console.log('project ajax load');
 
-						} else if (address.indexOf('practice') > -1) {
-
+						// PRACTICE
+						} else if (url[1] == 'practice')  {
+							console.log('		PRACTICE');
+							
 							$('#second').fadeOut(300);
 							$('.practice ul.menu').fadeIn(300);
 							practiceMenu();
-							console.log('practice ajax load');
-
-
-						} else if (address.indexOf('news') > -1) {
-
+													
+						// NEWS						
+						} else if (url[1] == 'news')  {
+							console.log('		NEWS');
+							
 							$('#second').fadeOut(300);
 							newsTitle();
 							mobileNewsTitle();
-							console.log('news ajax load');
 
 						} else {
-
+							console.log('		OTHER');						
 							$('#second').fadeOut(300);
-							console.log('default ajax load');
-
+						
 						}
 
 					});
 				});
-
+				
 			});
 		}
 
@@ -390,7 +416,7 @@ var isotopeLoad = function(item, gutter, column){
 	});
 
 	$('#second li:first-child a').addClass('active');
-
+		
 	$('#second a').click(function(){
 		var selector = $(this).attr('data-filter');
 		$('#second a').removeClass('active');
@@ -406,7 +432,7 @@ var isotopeLoad = function(item, gutter, column){
 
 // Mobile News Title
 var mobileNewsTitle = function(){
-	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
 		$('.profile p').css({'opacity' : '1'});
 		$('.news .full .image h2').css({
 			'background' : 'transparent',
@@ -420,33 +446,33 @@ var mobileNewsTitle = function(){
 
 // Centre thumbnail titles and images on projects page
 var centreThumbs = function(item) {
-
+	
 	$(item).each(function() {
 		var thumbHeight = $(this).height();
 		var thumbWidth = $(this).width();
 		var projectTitle = $('.project-title');
-
+		
 		if(location.pathname.indexOf('projects') > -1) {
-
+		
 			$(this).find('img').css({
 
 				'margin-left' : ((thumbWidth - $(this).find('img').width()) / 2),
 				'margin-top' : ((thumbHeight - $(this).find('img').height()) / 2)
-
+			
 			});
 			$(this).find('h3').css({
 				'padding-top': ((thumbHeight / 2) - 10)
 			});
-
+		
 		} else {
-
+		
 			$(this).find('h3').css({
 				'margin-top': ((thumbHeight / 2) - $(this).find('h3').height() - 10)
 			});
 		}
 
 	});
-	console.log('centred thumbs');
+	// console.log('centred thumbs');
 };
 
 // Centre intro slider titles
@@ -462,10 +488,9 @@ var sliderLoad = function(id, speed){
 	window.mySwipe = new Swipe(document.getElementById(id), {
 		startSlide: 0,
 		speed: speed,
-		auto: 4000,
-		continuous: true,
+		continuous: false,
 		disableScroll: false,
-		stopPropagation: true,
+		stopPropagation: false,
 		callback: function(index, elem) {},
 		transitionEnd: function(index, elem) {}
 	});
@@ -478,14 +503,14 @@ var sliderLoad = function(id, speed){
 var scrollIntro = function(){
 
 	$(window).on('scroll', function() {
-
+		
 		var pageOffset = window.pageYOffset;
 		var slideTitlePos = $('#slider').height() / 2 - 30;
 
-		$('.bg').css({'background-position-y' : -(pageOffset / 5) });
+		$('.bg').css({'background-position-y' : -(pageOffset / 5) });	
 		slideTitlePosition('#slider', '.bg h2'/*slideTitlePos + (pageOffset / 10)*/);
 
-		//if nav has class of top and window offset is more than 0 then make
+		//if nav has class of top and window offset is more than 0 then make 
 		if (window.pageYOffset >= $('#page').offset().top) {
 			if(!$('#nav').hasClass('top')) {
 
@@ -497,7 +522,7 @@ var scrollIntro = function(){
 				$('#nav').removeClass().addClass('top');
 				$('a.logoToggle').addClass('locked');
 				if (window.location.href === 'http://127.0.0.1:9000/' || window.location.href === 'http://landl/' || window.location.href === 'http://smongey.github.io/landl/' || location.pathname.indexOf('projects') > -1) {
-					if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+					if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
 						// nada
 					} else {
 						$('#second').fadeIn(300);
@@ -520,8 +545,8 @@ var scrollIntro = function(){
 
 // localscroll and practice nav highlighting
 var practiceMenu = function(){
-	if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-
+	if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
+	
 		$('ul.menu li a').each(function() {
 			$(this).click(function(e){
 				e.preventDefault();
@@ -529,7 +554,7 @@ var practiceMenu = function(){
 				$(this).addClass('active');
 				var url = $(this).attr('href').split('#');
 				var anchor = '#'+url[1];
-				console.log(anchor);
+				// console.log(anchor);
 				$(window).scrollTo(anchor, 600, {
 					offset: -125
 				});
@@ -538,10 +563,9 @@ var practiceMenu = function(){
 		});
 
 		$('ul.menu li:first-child a').addClass('active');
-		console.log('practiceMenu init');
-
+	
 	}
-
+	
 };
 
 // ajax for the link
@@ -550,17 +574,17 @@ var ajaxLink = function(elem){
 		e.preventDefault();
 		var address = $(this).attr('href');
 		history.pushState(address, '', address);
+
 		$('#first li a').removeClass('active');
+		
 		if (elem == 'a.single') {
 			$('#first li:first-child a').addClass('active');
 		} else {
 			$(this).addClass('active');
 		}
-
+		
 		ajaxCall(address);
-
 	});
-
 };
 
 var textToggle = function(){
@@ -581,7 +605,7 @@ var textToggle = function(){
 };
 
 var newsTitle = function(){
-	if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+	if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
 		var imageWidth = $('.full div.image').width() / 2;
 		var titleWidth = $('.image h2').outerWidth() / 2;
 		var titleHeight = $('.image h2').outerHeight() / 2;
