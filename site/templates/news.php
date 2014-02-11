@@ -14,7 +14,7 @@ include("./head.inc");
 
 					foreach($posts as $post) {
 						$name = $post->news_author->name;
-						$u = $users->get($name);
+						$u = $users->get('$name');
 						$profile = $u->person_photo;
 
 						echo $u;
