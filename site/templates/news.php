@@ -16,7 +16,8 @@ include("./head.inc");
 						$name = $post->news_author->name;
 						$u = $users->get($name);
 						$profile = $u->person_photo;
-						echo $profile;
+
+						echo $profile . '  ' . $name;
 
 						$mainprofile = $u->person_photo;
 						// $mainprofile = $mainprofile->size(100,100);
