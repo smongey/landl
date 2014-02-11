@@ -17,7 +17,7 @@ include("./head.inc");
 						$u = $users->get($name);
 						$profile = $u->person_photo;
 
-						echo $profile . '  ' . $name;
+						echo $u;
 
 						$mainprofile = $u->person_photo;
 						// $mainprofile = $mainprofile->size(100,100);
