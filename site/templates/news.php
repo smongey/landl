@@ -43,7 +43,7 @@ include("./head.inc");
 					foreach($posts as $post) {
 						$name = $post->news_author->name;
 						$u = $users->get($name);
-						$profile = $u->person_photo->size(50,50); 
+						$profile = $u->person_photo; 
 						
 						$num = $num + 1;
 						
