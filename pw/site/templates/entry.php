@@ -13,10 +13,9 @@ include("./head.inc");
 
 					$img = $page->news_image->first()->size(1000,500);
 					$name = $page->news_author->name;
-					$u = $users->get($name);
-					echo $u->name . '  ' . $u->person_photo; 
-					//$photo = $u->person_photo;
-					//$photo = $photo->size(100,100);
+					$u = $users->get($name); 
+					$photo = $u->person_photo->first();
+					$photo = $photo->size(100,100);
 
 					?>
 
