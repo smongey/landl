@@ -7,35 +7,19 @@ include("./head.inc");
 			<div id="container">
 
 				<ul>
-					<li class="item w1">
-						<div class="project-thumbnail">
-							<h3 class="project-title">Residential</h3><img alt="" src="http://placehold.it/560x350">
-						</div>
-					</li>
+					<?php
+					$num = 0;
 
-					<li class="item w2">
-						<div class="project-thumbnail">
-							<h3 class="project-title">Commercial</h3><img alt="" src="http://placehold.it/380x490">
-						</div>
-					</li>
+				 	foreach($page->categories_home as $category) { 
+						$num = $num + 1;
+						$img = $category->category_image;
 
-					<li class="item w3">
-						<div class="project-thumbnail">
-							<h3 class="project-title">Conservation</h3><img alt="" src="http://placehold.it/440x520">
-						</div>
-					</li>
+						echo "<li class='item w".$num."'>";
+						echo "<div class='project-thumbnail'>";
+						echo "	<h3 class='project-title'>" . $img->description . "</h3><img alt='' src='" . $img->url . "'>";
+						echo "</div></li>";
 
-					<li class="item w4">
-						<div class="project-thumbnail">
-							<h3 class="project-title">Education</h3><img alt="" src="http://placehold.it/600x410">
-						</div>
-					</li>
-
-					<li class="item w5">
-						<div class="project-thumbnail">
-							<h3 class="project-title">Public Buildings</h3><img alt="" src="http://placehold.it/350x370">
-						</div>
-					</li>
+					} ?>
 
 				</ul>
 
