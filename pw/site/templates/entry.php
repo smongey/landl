@@ -11,10 +11,16 @@ include("./head.inc");
 
 					<?php 
 
-					$img = $page->news_image->size(1000,500);
 					$name = $page->news_author->name;
 					$u = $users->get($name); 
-					$photo = $u->person_photo->size(100,100);
+					
+					$profile = $u->person_photo;
+					$profile = $mainprofile->size(100,100);
+
+
+					$main = $page->news_image->first();
+					$main = $main->size(1000,500);
+
 
 					?>
 
@@ -24,7 +30,7 @@ include("./head.inc");
 					</div>
 					<div class="text">
 						<div class="profile">
-							<img src="<?php echo "{$photo->url}" ?>" alt="">
+							<img src="<?php echo "{$profile->url}" ?>" alt="">
 							<p>Published on <span><?php echo date("j M Y", $page->created); ?></span> by <span><?php echo "{$page->news_author->name}"; ?></span></p>
 						</div>
 						<div class="intro">
