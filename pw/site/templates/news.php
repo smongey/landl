@@ -16,16 +16,16 @@ include("./head.inc");
 						$name = $post->news_author->name;
 						$u = $users->get($name);
 						$profile = $u->person_photo;
-//						$profile = $profile->size(50,50);
+						$profile = $profile->width(50);
 
 						$mainprofile = $u->person_photo;
-//						$mainprofile = $mainprofile->size(100,100);
+						// $mainprofile = $mainprofile->size(100,100);
 
 						$img = $post->news_image->first();
-//						$img = $img->size(540,400);
+						// $img = $img->size(540,400);
 						
 						$main = $post->news_image->first();
-//						$main = $main->size(1000,500);
+						// $main = $main->size(1000,500);
 
 						$num = $num + 1;
 						if($num == 1) { ?>
