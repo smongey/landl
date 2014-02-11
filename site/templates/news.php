@@ -8,77 +8,80 @@ include("./head.inc");
 			<div id="container">
 
 				<div class="full">
+
+					<?php 
+					$news = $pages->get(1011); 
+					$first = $news->children->first();
+					$img = $first->news_image->first();
+					$name = $first->news_author->name;
+					$u = $users->get($name); 
+					$photo = $u->person_photo->size(100,100);
+					?>
+
 					<div class="image">
-						<h2>News Item Title</h2>
-						<img src="http://placehold.it/1000x500" alt="">
+						<h2><?php echo "{$first->title}"; ?></h2>
+						<img src="<?php echo "{$img->url}"; ?>" alt=''>
 					</div>
 					<div class="text">
 						<div class="profile">
-							<img src="http://placehold.it/100x100" alt="">
-							<p>Published on <span>12 Oct 2013</span> by <span>Pierre Long</span></p>
+							<img src="<?php echo "{$photo->url}" ?>" alt="">
+							<p>Published on <span><?php echo date("j M Y", $first->created); ?></span> by <span><?php echo "{$first->news_author->name}"; ?></span></p>
 						</div>
 						<div class="intro">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, veniam, deserunt, doloribus saepe magni iure quae amet repudiandae sed molestias voluptate nemo accusantium ipsa ullam molestiae omnis voluptatem cupiditate ipsum quas placeat veritatis eaque rem sapiente similique in ad excepturi quaerat accusamus explicabo maxime. Explicabo, odit non sequi consectetur rerum!</p>
-							<a href="#" class="more"></a>
+							<p><?php echo "{$first->news_excerpt}"; ?></p>
+							<a href="<?php echo "{$first->url}"; ?>" class="more"></a>
 						</div>
 					</div>
 				</div>
 
-				<!-- text on left -->
-				<div class="left">
-					<div class="text">
-						<span class="date">6 Sep 2013</span>
-						<img src="http://placehold.it/50x50" alt="">
-						<h3>News Item Title</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, veniam, deserunt, doloribus saepe magni iure quae amet repudiandae sed molestias voluptate nemo accusantium ipsa ullam molestiae omnis voluptatem cupiditate ipsum quas placeat veritatis eaque rem sapiente similique in ad excepturi quaerat accusamus explicabo maxime. Explicabo, odit non sequi consectetur rerum!</p>
-						<a href="#" class="more"></a>
-					</div>
-					<div class="image">
-						<img src="http://placehold.it/540x400" alt="">
-					</div>
-				</div>
 
-				<!-- text on right -->
-				<div class="right">
-					<div class="image">
-						<img src="http://placehold.it/540x400" alt="">
-					</div>
-					<div class="text">
-						<span class="date">6 Sep 2013</span>
-						<img src="http://placehold.it/50x50" alt="">
-						<h3>News Item Title</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, veniam, deserunt, doloribus saepe magni iure quae amet repudiandae sed molestias voluptate nemo accusantium ipsa ullam molestiae omnis voluptatem cupiditate ipsum quas placeat veritatis eaque rem sapiente similique in ad excepturi quaerat accusamus explicabo maxime. Explicabo, odit non sequi consectetur rerum!</p>
-						<a href="#" class="more"></a>
-					</div>
-				</div>
+				<?php 
+				$num = 0;
+				$posts = $pages->find('template=entry, start=2'); 
+					
 
-				<!-- text on left -->
-				<div class="left">
-					<div class="text">
-						<span class="date">6 Sep 2013</span>
-						<img src="http://placehold.it/50x50" alt="">
-						<h3>News Item Title</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, veniam, deserunt, doloribus saepe magni iure quae amet repudiandae sed molestias voluptate nemo accusantium ipsa ullam molestiae omnis voluptatem cupiditate ipsum quas placeat veritatis eaque rem sapiente similique in ad excepturi quaerat accusamus explicabo maxime. Explicabo, odit non sequi consectetur rerum!</p>
-						<a href="#" class="more"></a>
-					</div>
-					<div class="image">
-						<img src="http://placehold.it/540x400" alt="">
-					</div>
-				</div>
+					foreach($posts as $post) {
+						$name = $post->news_author->name;
+						$u = $users->get($name);
+						$profile = $u->person_photo->size(50,50); 
+						
+						$num = $num + 1;
+						
+						if($num == 1) {
+						
+							// dont show the first post as it's already above
 
-				<!-- text on right -->
-				<div class="right">
-					<div class="image">
-						<img src="http://placehold.it/540x400" alt="">
-					</div>
-					<div class="text">
-						<span class="date">6 Sep 2013</span>
-						<img src="http://placehold.it/50x50" alt="">
-						<h3>News Item Title</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, veniam, deserunt, doloribus saepe magni iure quae amet repudiandae sed molestias voluptate nemo accusantium ipsa ullam molestiae omnis voluptatem cupiditate ipsum quas placeat veritatis eaque rem sapiente similique in ad excepturi quaerat accusamus explicabo maxime. Explicabo, odit non sequi consectetur rerum!</p>
-						<a href="#" class="more"></a>
-					</div>
-				</div>
+						} elseif ($num % 2 == 0) { ?>
+
+							<div class="left">
+								<div class="text">
+									<span class="date"><?php echo date("j M Y", $post->created); ?></span>
+									<img src="<?php echo "{$profile->url}" ?>" alt="">
+									<h3><?php echo $post->title ?></h3>
+									<p><?php echo $post->news_excerpt ?></p>
+									<a href="<?php echo "{$post->url}" ?>" class="more"></a>
+								</div>
+								<div class="image">
+									<img src="<?php echo $post->news_image->first()->size(540, 400)->url; ?>" alt="">
+								</div>
+							</div>
+							
+						<?php } else { ?>
+
+							<div class="right">
+								<div class="image">
+									<img src="<?php echo $post->news_image->first()->size(540, 400)->url; ?>" alt="">
+								</div>
+								<div class="text">
+									<span class="date"><?php echo date("j M Y", $post->created); ?></span>
+									<img src="<?php echo "{$profile->url}" ?>" alt="">
+									<h3><?php echo $post->title ?></h3>
+									<p><?php echo $post->news_excerpt ?></p>
+									<a href="<?php echo "{$post->url}" ?>" class="more"></a>
+								</div>
+							</div>
+
+						<?php } } ?>
 
 			</div> 
 					
