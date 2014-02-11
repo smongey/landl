@@ -15,7 +15,7 @@ include("./head.inc");
 					$img = $first->news_image->first();
 					$name = $first->news_author->name;
 					$u = $users->get($name); 
-					$photo = $u->person_photo->size(100,100);
+					$photo = $u->person_photo;
 					?>
 
 					<div class="image">
