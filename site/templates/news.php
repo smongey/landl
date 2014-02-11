@@ -14,8 +14,8 @@ include("./head.inc");
 					$first = $news->children->first();
 					$img = $first->news_image->first();
 					$name = $first->news_author->name;
-					$u = $users->get($name); 
-					$photo = $u->person_photo;
+					$u = $users->get('admin'); 
+					$photo = $u->person_photo->size(100,100);
 					?>
 
 					<div class="image">
@@ -43,7 +43,7 @@ include("./head.inc");
 					foreach($posts as $post) {
 						$name = $post->news_author->name;
 						$u = $users->get($name);
-						$profile = $u->person_photo; 
+						$profile = $u->person_photo->size(50,50); 
 						
 						$num = $num + 1;
 						
