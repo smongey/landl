@@ -15,7 +15,7 @@ include("./head.inc");
 					$img = $first->news_image->first();
 					$name = $first->news_author->name;
 					$u = $users->get($name); 
-					$photo = $u->person_photo->first()->size(100,100);
+					//$photo = $u->person_photo->first()->size(100,100);
 					?>
 
 					<div class="image">
@@ -24,7 +24,7 @@ include("./head.inc");
 					</div>
 					<div class="text">
 						<div class="profile">
-							<img src="<?php echo "{$photo->url}" ?>" alt="">
+							<img src="<?php echo "{$u->title}" ?>" alt="">
 							<p>Published on <span><?php echo date("j M Y", $first->created); ?></span> by <span><?php echo "{$first->news_author->name}"; ?></span></p>
 						</div>
 						<div class="intro">
@@ -43,7 +43,7 @@ include("./head.inc");
 					foreach($posts as $post) {
 						$name = $post->news_author->name;
 						$u = $users->get($name);
-						$profile = $u->person_photo->first()->size(50,50); 
+						//$profile = $u->person_photo->first()->size(50,50); 
 						
 						$num = $num + 1;
 						
@@ -56,7 +56,7 @@ include("./head.inc");
 							<div class="left">
 								<div class="text">
 									<span class="date"><?php echo date("j M Y", $post->created); ?></span>
-									<img src="<?php echo "{$profile->url}" ?>" alt="">
+									<img src="<?php echo "{$u->name}" ?>" alt="">
 									<h3><?php echo $post->title ?></h3>
 									<p><?php echo $post->news_excerpt ?></p>
 									<a href="<?php echo "{$post->url}" ?>" class="more"></a>
@@ -74,7 +74,7 @@ include("./head.inc");
 								</div>
 								<div class="text">
 									<span class="date"><?php echo date("j M Y", $post->created); ?></span>
-									<img src="<?php echo "{$profile->url}" ?>" alt="">
+									<img src="<?php echo "{$u->person_photo->url}" ?>" alt="">
 									<h3><?php echo $post->title ?></h3>
 									<p><?php echo $post->news_excerpt ?></p>
 									<a href="<?php echo "{$post->url}" ?>" class="more"></a>
