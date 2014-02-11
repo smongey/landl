@@ -1,6 +1,7 @@
 node_modules
 .tmp
 .sass-cache
+.DS_Store
 app/bower_components
 pw/site/modules/ProCache
 pw/site/config-dev.php
