@@ -43,7 +43,7 @@
 
 	<section id="nav">
 		<nav>
-			<ul><li><a class="logoToggle hidden" href="#page">Lawrence &amp; Long</a></li></ul>
+			<ul><li><a class="logoToggle hidden" href="#page">Lawrence &amp; Long Architects</a></li></ul>
 			<ul id="first">
 				<?php 
 				$projects = $pages->get("/projects/"); 
