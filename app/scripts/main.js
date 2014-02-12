@@ -323,12 +323,11 @@ var ajaxCall = function(address){
 							console.log('		NEWS');
 
 							$('#second').fadeOut(300);
-							newsTitle();
 							mobileNewsTitle();
 
 						} else {
 							console.log('		OTHER');						
-													
+							isotopeLoad('.item', 60, 100);						
 							$('#second').fadeOut(300);
 						}
 					});
@@ -372,14 +371,16 @@ var ajaxCall = function(address){
 						} else if (url[1] == 'news')  {
 							console.log('		NEWS');
 							
-							$('#second').fadeOut(300);
-							newsTitle();
-							mobileNewsTitle();
+							$('#second').fadeOut(300, function(){
+								newsTitle();
+							});
+							
 
 						} else {
-							console.log('		OTHER');						
+							console.log('		OTHER');					
+							isotopeLoad('.item', 60, 100);							
 							$('#second').fadeOut(300);
-						
+							
 						}
 
 					});
@@ -428,6 +429,19 @@ var isotopeLoad = function(item, gutter, column){
 
 	console.log('isotope loaded');
 
+};
+
+
+var newsTitle = function(){
+	if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
+		var imageWidth = $('.full div.image').width() / 2;
+		var titleWidth = $('.image h2').outerWidth() / 2;
+		var titleHeight = $('.image h2').outerHeight() / 2;
+		var imageHeight = $('.full div.image').height() / 2;
+		$('.image h2').css({'margin-left': (imageWidth - titleWidth), 'margin-top' : (imageHeight - titleHeight) });
+		console.log('newsTitle init');
+		$('.image h2').delay(1000).animate({'opacity': 1}, 300);
+	}
 };
 
 // Mobile News Title
@@ -488,7 +502,8 @@ var sliderLoad = function(id, speed){
 	window.mySwipe = new Swipe(document.getElementById(id), {
 		startSlide: 0,
 		speed: speed,
-		continuous: false,
+		auto: 4000,
+		continuous: true,
 		disableScroll: false,
 		stopPropagation: false,
 		callback: function(index, elem) {},
@@ -602,17 +617,4 @@ var textToggle = function(){
 		}
 	});
 
-};
-
-var newsTitle = function(){
-	if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
-		var imageWidth = $('.full div.image').width() / 2;
-		var titleWidth = $('.image h2').outerWidth() / 2;
-		var titleHeight = $('.image h2').outerHeight() / 2;
-		var imageHeight = $('.full div.image').height() / 2;
-		$('.image h2').css({'margin-left': (imageWidth - titleWidth), 'margin-top' : (imageHeight - titleHeight) });
-		//slideTitlePosition('.full div.image', '.image h2');
-		console.log('newsTitle init');
-		$('.image h2').animate({'opacity': 1}, 300);
-	}
 };
